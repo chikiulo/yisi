@@ -1,0 +1,4 @@
+Reading w2v text model from mini.d300.en
+Size of voc: 500 Dimension: 300
+Finished reading w2v model.
+w2v similarity of `EU' and `UK': 0.487945

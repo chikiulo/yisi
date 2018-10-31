@@ -1,0 +1,205 @@
+1	A	a	a	DT	DT	_	_	3	3	NMOD	NMOD	_	_	_	_	_
+2	Republican	republican	republican	JJ	JJ	_	_	3	3	NMOD	NMOD	_	_	A0	_	_
+3	strategy	strategy	strategy	NN	NN	_	_	0	0	ROOT	ROOT	Y	strategy.01	_	_	_
+4	to	to	to	TO	TO	_	_	3	3	NMOD	NMOD	_	_	A1	_	_
+5	counter	counter	counter	VB	VB	_	_	4	4	IM	IM	Y	counter.01	_	_	_
+6	the	the	the	DT	DT	_	_	9	9	NMOD	NMOD	_	_	_	_	_
+7	re	re	re	NN	NN	_	_	9	9	HMOD	HMOD	_	_	_	_	_
+8	-	-	-	HYPH	HYPH	_	_	7	7	HYPH	HYPH	_	_	_	_	_
+9	election	election	election	NN	NN	_	_	5	5	OBJ	OBJ	Y	election.01	_	A1	_
+10	of	of	of	IN	IN	_	_	9	9	NMOD	NMOD	_	_	_	_	A1
+11	Obama	obama	obama	NNP	NNP	_	_	10	10	PMOD	PMOD	_	_	_	_	_
+
+1	Republican	republican	republican	JJ	JJ	_	_	2	2	NMOD	NMOD	_	_	A2	_	_	_	_	_
+2	leaders	leaders	leaders	NNS	NNS	_	_	3	3	SBJ	SBJ	Y	leader.01	A0	A0	_	_	A0	_
+3	justified	justify	justify	VBD	VBD	_	_	0	0	ROOT	ROOT	Y	justify.01	_	_	_	_	_	_
+4	their	their	their	PRP$	PRP$	_	_	5	5	NMOD	NMOD	_	_	_	_	A0	_	_	_
+5	policy	policy	policy	NN	NN	_	_	3	3	OBJ	OBJ	Y	policy.01	_	A1	_	_	_	_
+6	by	by	by	IN	IN	_	_	3	3	MNR	MNR	_	_	_	A2	_	_	_	_
+7	the	the	the	DT	DT	_	_	8	8	NMOD	NMOD	_	_	_	_	_	_	_	_
+8	need	need	need	NN	NN	_	_	6	6	PMOD	PMOD	Y	need.01	_	_	_	_	_	_
+9	to	to	to	TO	TO	_	_	8	8	NMOD	NMOD	_	_	_	_	_	A1	_	_
+10	combat	combat	combat	VB	VB	_	_	9	9	IM	IM	Y	combat.01	_	_	_	_	_	_
+11	electoral	electoral	electoral	JJ	JJ	_	_	12	12	NMOD	NMOD	_	_	_	_	_	_	_	A1
+12	fraud	fraud	fraud	NN	NN	_	_	10	10	OBJ	OBJ	Y	fraud.01	_	_	_	_	A1	_
+13	.	.	.	.	.	_	_	3	3	P	P	_	_	_	_	_	_	_	_
+
+1	However	however	however	RB	RB	_	_	6	6	ADV	ADV	_	_	AM-DIS	_	_	_	_
+2	,	,	,	,	,	_	_	6	6	P	P	_	_	_	_	_	_	_
+3	the	the	the	DT	DT	_	_	5	5	NMOD	NMOD	_	_	_	_	_	_	_
+4	Brennan	brennan	brennan	NNP	NNP	_	_	5	5	NAME	NAME	_	_	_	_	_	_	_
+5	Centre	centre	centre	NNP	NNP	_	_	6	6	SBJ	SBJ	_	_	A0	A0	_	_	_
+6	considers	consider	consider	VBZ	VBZ	_	_	0	0	ROOT	ROOT	Y	consider.01	_	_	_	_	_
+7	this	this	this	DT	DT	_	_	6	6	OBJ	OBJ	_	_	A1	_	_	_	_
+8	a	a	a	DT	DT	_	_	9	9	NMOD	NMOD	_	_	_	_	_	_	_
+9	myth	myth	myth	NN	NN	_	_	6	6	OPRD	OPRD	_	_	A2	_	_	_	_
+10	,	,	,	,	,	_	_	6	6	P	P	_	_	_	_	_	_	_
+11	stating	state	state	VBG	VBG	_	_	6	6	ADV	ADV	Y	state.01	AM-ADV	_	_	_	_
+12	that	that	that	IN	IN	_	_	11	11	OBJ	OBJ	_	_	_	A1	_	_	_
+13	electoral	electoral	electoral	JJ	JJ	_	_	14	14	NMOD	NMOD	_	_	_	_	A1	_	_
+14	fraud	fraud	fraud	NN	NN	_	_	15	15	SBJ	SBJ	Y	fraud.01	_	_	_	_	_
+15	is	be	be	VBZ	VBZ	_	_	12	12	SUB	SUB	_	_	_	_	_	_	_
+16	rarer	rarer	rarer	JJR	JJR	_	_	15	15	PRD	PRD	_	_	_	_	_	_	_
+17	in	in	in	IN	IN	_	_	16	16	LOC	LOC	_	_	_	_	_	_	_
+18	the	the	the	DT	DT	_	_	20	20	NMOD	NMOD	_	_	_	_	_	_	_
+19	United	united	united	NNP	NNP	_	_	20	20	NAME	NAME	_	_	_	_	_	_	_
+20	States	state	state	NNPS	NNPS	_	_	17	17	PMOD	PMOD	_	_	_	_	_	_	_
+21	than	than	than	IN	IN	_	_	16	16	AMOD	AMOD	_	_	_	_	_	_	_
+22	the	the	the	DT	DT	_	_	23	23	NMOD	NMOD	_	_	_	_	_	_	_
+23	number	number	number	NN	NN	_	_	21	21	PMOD	PMOD	Y	number.01	_	_	_	_	_
+24	of	of	of	IN	IN	_	_	23	23	NMOD	NMOD	_	_	_	_	_	A1	_
+25	people	people	people	NN	NN	_	_	24	24	PMOD	PMOD	_	_	_	_	_	_	A1
+26	killed	kill	kill	VBN	VBN	_	_	25	25	APPO	APPO	Y	kill.01	_	_	_	_	_
+27	by	by	by	IN	IN	_	_	26	26	LGS	LGS	_	_	_	_	_	_	A0
+28	lightning	lightning	lightning	NN	NN	_	_	27	27	PMOD	PMOD	_	_	_	_	_	_	_
+29	.	.	.	.	.	_	_	6	6	P	P	_	_	_	_	_	_	_
+
+1	Indeed	indeed	indeed	RB	RB	_	_	5	5	ADV	ADV	_	_	_	AM-DIS	_	_
+2	,	,	,	,	,	_	_	5	5	P	P	_	_	_	_	_	_
+3	Republican	republican	republican	JJ	JJ	_	_	4	4	NMOD	NMOD	_	_	A2	_	_	_
+4	lawyers	lawyer	lawyer	NNS	NNS	_	_	5	5	SBJ	SBJ	Y	lawyer.01	A0	A0	_	_
+5	identified	identify	identify	VBD	VBD	_	_	0	0	ROOT	ROOT	Y	identify.01	_	_	_	_
+6	only	only	only	CD	CD	_	_	7	7	DEP	DEP	_	_	_	_	_	_
+7	300	300	300	CD	CD	_	_	8	8	NMOD	NMOD	_	_	_	_	_	_
+8	cases	case	case	NNS	NNS	_	_	5	5	OBJ	OBJ	Y	case.01	_	A1	_	_
+9	of	of	of	IN	IN	_	_	8	8	NMOD	NMOD	_	_	_	_	A1	_
+10	electoral	electoral	electoral	JJ	JJ	_	_	11	11	NMOD	NMOD	_	_	_	_	_	A1
+11	fraud	fraud	fraud	NN	NN	_	_	9	9	PMOD	PMOD	Y	fraud.01	_	_	_	_
+12	in	in	in	IN	IN	_	_	8	8	LOC	LOC	_	_	_	_	_	_
+13	the	the	the	DT	DT	_	_	15	15	NMOD	NMOD	_	_	_	_	_	_
+14	United	united	united	NNP	NNP	_	_	15	15	NAME	NAME	_	_	_	_	_	_
+15	States	state	state	NNPS	NNPS	_	_	12	12	PMOD	PMOD	_	_	_	_	_	_
+16	in	in	in	IN	IN	_	_	5	5	TMP	TMP	_	_	_	AM-TMP	_	_
+17	a	a	a	DT	DT	_	_	18	18	NMOD	NMOD	_	_	_	_	_	_
+18	decade	decade	decade	NN	NN	_	_	16	16	PMOD	PMOD	_	_	_	_	_	_
+19	.	.	.	.	.	_	_	5	5	P	P	_	_	_	_	_	_
+
+1	One	one	one	CD	CD	_	_	2	2	NMOD	NMOD	_	_	_	_	_
+2	thing	thing	thing	NN	NN	_	_	3	3	SBJ	SBJ	_	_	_	_	_
+3	is	be	be	VBZ	VBZ	_	_	0	0	ROOT	ROOT	_	_	_	_	_
+4	certain	certain	certain	JJ	JJ	_	_	3	3	PRD	PRD	_	_	_	_	_
+5	:	:	:	:	:	_	_	3	3	P	P	_	_	_	_	_
+6	these	these	these	DT	DT	_	_	8	8	NMOD	NMOD	_	_	_	_	_
+7	new	new	new	JJ	JJ	_	_	8	8	NMOD	NMOD	_	_	_	_	_
+8	provisions	provisions	provisions	NNS	NNS	_	_	9	9	SBJ	SBJ	_	_	A0	_	_
+9	will	will	will	MD	MD	_	_	3	3	COORD	COORD	_	_	AM-MOD	_	_
+10	have	have	have	VB	VB	_	_	9	9	VC	VC	Y	have.03	_	_	_
+11	a	a	a	DT	DT	_	_	13	13	NMOD	NMOD	_	_	_	_	_
+12	negative	negative	negative	JJ	JJ	_	_	13	13	NMOD	NMOD	_	_	_	AM-MNR	_
+13	impact	impact	impact	NN	NN	_	_	10	10	OBJ	OBJ	Y	impact.01	A1	_	_
+14	on	on	on	IN	IN	_	_	13	13	NMOD	NMOD	_	_	_	A1	_
+15	voter	voter	voter	NN	NN	_	_	18	18	NMOD	NMOD	_	_	_	_	A1
+16	turn	turn	turn	NN	NN	_	_	18	18	HMOD	HMOD	_	_	_	_	_
+17	-	-	-	HYPH	HYPH	_	_	16	16	HYPH	HYPH	_	_	_	_	_
+18	out	out	out	NN	NN	_	_	14	14	PMOD	PMOD	Y	out.01	_	_	_
+19	.	.	.	.	.	_	_	3	3	P	P	_	_	_	_	_
+
+1	In	in	in	IN	IN	_	_	7	7	ADV	ADV	_	_	AM-ADV	_
+2	this	this	this	DT	DT	_	_	3	3	NMOD	NMOD	_	_	_	_
+3	sense	sense	sense	NN	NN	_	_	1	1	PMOD	PMOD	_	_	_	_
+4	,	,	,	,	,	_	_	7	7	P	P	_	_	_	_
+5	the	the	the	DT	DT	_	_	6	6	NMOD	NMOD	_	_	_	_
+6	measures	measure	measure	NNS	NNS	_	_	7	7	SBJ	SBJ	_	_	A0	_
+7	will	will	will	MD	MD	_	_	0	0	ROOT	ROOT	_	_	AM-MOD	_
+8	partially	partially	partially	RB	RB	_	_	7	7	ADV	ADV	_	_	AM-MNR	_
+9	undermine	undermine	undermine	VB	VB	_	_	7	7	VC	VC	Y	undermine.01	_	_
+10	the	the	the	DT	DT	_	_	13	13	NMOD	NMOD	_	_	_	_
+11	American	american	american	JJ	JJ	_	_	13	13	NMOD	NMOD	_	_	_	_
+12	democratic	democratic	democratic	JJ	JJ	_	_	13	13	NMOD	NMOD	_	_	_	A1
+13	system	system	system	NN	NN	_	_	9	9	OBJ	OBJ	Y	system.01	A1	_
+14	.	.	.	.	.	_	_	7	7	P	P	_	_	_	_
+
+1	Unlike	unlike	unlike	IN	IN	_	_	8	8	ADV	ADV	_	_	_
+2	in	in	in	IN	IN	_	_	1	1	LOC	LOC	_	_	_
+3	Canada	canada	canada	NNP	NNP	_	_	2	2	PMOD	PMOD	_	_	_
+4	,	,	,	,	,	_	_	8	8	P	P	_	_	_
+5	the	the	the	DT	DT	_	_	7	7	NMOD	NMOD	_	_	_
+6	American	american	american	NNP	NNP	_	_	7	7	NAME	NAME	_	_	_
+7	States	state	state	NNPS	NNPS	_	_	8	8	SBJ	SBJ	_	_	_
+8	are	be	be	VBP	VBP	_	_	0	0	ROOT	ROOT	_	_	_
+9	responsible	responsible	responsible	JJ	JJ	_	_	8	8	PRD	PRD	_	_	_
+10	for	for	for	IN	IN	_	_	9	9	AMOD	AMOD	_	_	_
+11	the	the	the	DT	DT	_	_	12	12	NMOD	NMOD	_	_	_
+12	organization	organization	organization	NN	NN	_	_	10	10	PMOD	PMOD	_	_	_
+13	of	of	of	IN	IN	_	_	12	12	NMOD	NMOD	_	_	_
+14	federal	federal	federal	JJ	JJ	_	_	15	15	NMOD	NMOD	_	_	A2
+15	elections	election	election	NNS	NNS	_	_	13	13	PMOD	PMOD	Y	election.01	_
+16	in	in	in	IN	IN	_	_	15	15	LOC	LOC	_	_	AM-LOC
+17	the	the	the	DT	DT	_	_	19	19	NMOD	NMOD	_	_	_
+18	United	united	united	NNP	NNP	_	_	19	19	NAME	NAME	_	_	_
+19	States	state	state	NNPS	NNPS	_	_	16	16	PMOD	PMOD	_	_	_
+20	.	.	.	.	.	_	_	8	8	P	P	_	_	_
+
+1	It	it	it	PRP	PRP	_	_	2	2	SBJ	SBJ	_	_	_	_	_	_	_	_	_	_
+2	is	be	be	VBZ	VBZ	_	_	0	0	ROOT	ROOT	_	_	_	_	_	_	_	_	_	_
+3	in	in	in	IN	IN	_	_	2	2	PRD	PRD	_	_	_	_	_	_	_	_	_	_
+4	this	this	this	DT	DT	_	_	5	5	NMOD	NMOD	_	_	_	_	_	_	_	_	_	_
+5	spirit	spirit	spirit	NN	NN	_	_	3	3	PMOD	PMOD	_	_	_	_	_	_	_	_	_	_
+6	that	that	that	IN	IN	_	_	2	2	EXTR	EXTR	_	_	_	_	_	_	_	_	_	_
+7	a	a	a	DT	DT	_	_	8	8	NMOD	NMOD	_	_	_	_	_	_	_	_	_	_
+8	majority	majority	majority	NN	NN	_	_	12	12	SBJ	SBJ	Y	majority.01	_	_	A0	A0	A0	_	_	_
+9	of	of	of	IN	IN	_	_	8	8	NMOD	NMOD	_	_	A1	_	_	_	_	_	_	_
+10	American	american	american	JJ	JJ	_	_	11	11	NMOD	NMOD	_	_	_	A2	_	_	_	_	_	_
+11	governments	government	government	NNS	NNS	_	_	9	9	PMOD	PMOD	Y	government.01	_	A0	_	_	_	_	_	_
+12	have	have	have	VBP	VBP	_	_	6	6	SUB	SUB	_	_	_	_	_	_	_	_	_	_
+13	passed	pass	pass	VBN	VBN	_	_	12	12	VC	VC	Y	pass.01	_	_	_	_	_	_	_	_
+14	new	new	new	JJ	JJ	_	_	15	15	NMOD	NMOD	_	_	_	_	_	_	_	_	_	_
+15	laws	laws	laws	NNS	NNS	_	_	13	13	OBJ	OBJ	Y	law.01	_	_	A1	A1	_	_	_	_
+16	since	since	since	IN	IN	_	_	13	13	TMP	TMP	_	_	_	_	AM-TMP	_	_	_	_	_
+17	2009	2009	2009	CD	CD	_	_	16	16	PMOD	PMOD	_	_	_	_	_	_	_	_	_	_
+18	making	make	make	VBG	VBG	_	_	13	13	ADV	ADV	Y	make.02	_	_	_	_	_	_	_	_
+19	the	the	the	DT	DT	_	_	20	20	NMOD	NMOD	_	_	_	_	_	_	_	_	_	_
+20	registration	registration	registration	NN	NN	_	_	18	18	OBJ	OBJ	Y	registration.01	_	_	_	_	A1	_	_	_
+21	or	or	or	CC	CC	_	_	20	20	COORD	COORD	_	_	_	_	_	_	_	_	_	_
+22	voting	voting	voting	NN	NN	_	_	23	23	NMOD	NMOD	Y	voting.01	_	_	_	_	_	_	_	A1
+23	process	process	process	NN	NN	_	_	21	21	CONJ	CONJ	Y	process.01	_	_	_	_	_	_	_	_
+24	more	more	more	RBR	RBR	_	_	25	25	AMOD	AMOD	_	_	_	_	_	_	_	_	_	_
+25	difficult	difficult	difficult	JJ	JJ	_	_	18	18	OPRD	OPRD	_	_	_	_	_	_	A2	_	_	_
+26	.	.	.	.	.	_	_	2	2	P	P	_	_	_	_	_	_	_	_	_	_
+
+1	This	this	this	DT	DT	_	_	2	2	NMOD	NMOD	_	_	_	_	_	_	_	_
+2	phenomenon	phenomenon	phenomenon	NN	NN	_	_	3	3	SBJ	SBJ	_	_	A1	A1	_	_	_	_
+3	gained	gain	gain	VBD	VBD	_	_	0	0	ROOT	ROOT	Y	gain.01	_	_	_	_	_	_
+4	momentum	momentum	momentum	NN	NN	_	_	3	3	OBJ	OBJ	Y	momentum.01	A2	A2	_	_	_	_
+5	following	follow	follow	VBG	VBG	_	_	3	3	ADV	ADV	Y	follow.01	AM-TMP	_	_	_	_	_
+6	the	the	the	DT	DT	_	_	9	9	NMOD	NMOD	_	_	_	_	_	_	_	_
+7	November	november	november	NNP	NNP	_	_	8	8	NMOD	NMOD	_	_	_	_	_	_	_	_
+8	2010	2010	2010	CD	CD	_	_	9	9	NMOD	NMOD	_	_	_	_	_	_	_	_
+9	elections	election	election	NNS	NNS	_	_	5	5	PMOD	PMOD	_	_	_	_	A2	A0	_	_
+10	,	,	,	,	,	_	_	9	9	P	P	_	_	_	_	_	_	_	_
+11	which	which	which	WDT	WDT	_	_	12	12	SBJ	SBJ	_	_	_	_	_	R-A0	_	_
+12	saw	saw	saw	VBD	VBD	_	_	9	9	NMOD	NMOD	Y	see.01	_	_	_	_	_	_
+13	675	675	675	CD	CD	_	_	16	16	NMOD	NMOD	_	_	_	_	_	_	_	_
+14	new	new	new	JJ	JJ	_	_	16	16	NMOD	NMOD	_	_	_	_	_	_	_	_
+15	Republican	republican	republican	JJ	JJ	_	_	16	16	NMOD	NMOD	_	_	_	_	_	_	A4	_
+16	representatives	representative	representative	NNS	NNS	_	_	12	12	OBJ	OBJ	Y	representative.01	_	_	_	A1	A0	A1
+17	added	add	add	VBN	VBN	_	_	12	12	OPRD	OPRD	Y	add.02	_	_	_	C-A1	_	_
+18	in	in	in	IN	IN	_	_	17	17	LOC	LOC	_	_	_	_	_	_	_	AM-LOC
+19	26	26	26	CD	CD	_	_	20	20	NMOD	NMOD	_	_	_	_	_	_	_	_
+20	States	state	state	NNPS	NNPS	_	_	18	18	PMOD	PMOD	_	_	_	_	_	_	_	_
+21	.	.	.	.	.	_	_	3	3	P	P	_	_	_	_	_	_	_	_
+
+1	As	as	as	IN	IN	_	_	18	18	ADV	ADV	_	_	_	_	_	_	_	AM-DIS
+2	a	a	a	DT	DT	_	_	3	3	NMOD	NMOD	_	_	_	_	_	_	_	_
+3	result	result	result	NN	NN	_	_	1	1	PMOD	PMOD	Y	result.01	_	_	_	_	_	_
+4	,	,	,	,	,	_	_	18	18	P	P	_	_	_	_	_	_	_	_
+5	180	180	180	CD	CD	_	_	6	6	NMOD	NMOD	_	_	_	_	_	_	_	_
+6	bills	bill	bill	NNS	NNS	_	_	18	18	SBJ	SBJ	_	_	_	A0	_	_	_	A1
+7	restricting	restrict	restrict	VBG	VBG	_	_	6	6	APPO	APPO	Y	restrict.01	_	_	_	_	_	_
+8	the	the	the	DT	DT	_	_	9	9	NMOD	NMOD	_	_	_	_	_	_	_	_
+9	exercise	exercise	exercise	NN	NN	_	_	7	7	OBJ	OBJ	Y	exercise.01	_	A1	_	_	_	_
+10	of	of	of	IN	IN	_	_	9	9	NMOD	NMOD	_	_	_	_	A1	_	_	_
+11	the	the	the	DT	DT	_	_	12	12	NMOD	NMOD	_	_	_	_	_	_	_	_
+12	right	right	right	NN	NN	_	_	10	10	PMOD	PMOD	Y	right.01	_	_	_	_	_	_
+13	to	to	to	TO	TO	_	_	12	12	NMOD	NMOD	_	_	_	_	_	A1	_	_
+14	vote	vote	vote	VB	VB	_	_	13	13	IM	IM	Y	vote.01	_	_	_	_	_	_
+15	in	in	in	IN	IN	_	_	14	14	ADV	ADV	_	_	_	_	_	_	AM-LOC	_
+16	41	41	41	CD	CD	_	_	17	17	NMOD	NMOD	_	_	_	_	_	_	_	_
+17	States	state	state	NNS	NNS	_	_	15	15	PMOD	PMOD	_	_	_	_	_	_	_	_
+18	were	be	be	VBD	VBD	_	_	0	0	ROOT	ROOT	_	_	A2	_	_	_	_	_
+19	introduced	introduce	introduce	VBN	VBN	_	_	18	18	VC	VC	Y	introduce.02	_	_	_	_	_	_
+20	in	in	in	IN	IN	_	_	19	19	TMP	TMP	_	_	_	_	_	_	_	AM-TMP
+21	2011	2011	2011	CD	CD	_	_	20	20	PMOD	PMOD	_	_	_	_	_	_	_	_
+22	alone	alone	alone	RB	RB	_	_	21	21	NMOD	NMOD	_	_	_	_	_	_	_	_
+23	.	.	.	.	.	_	_	18	18	P	P	_	_	_	_	_	_	_	_
+

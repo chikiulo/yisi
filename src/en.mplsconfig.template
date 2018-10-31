@@ -1,0 +1,10 @@
+matejar=<YISI_HOME>/obj/srlmate.jar:<MATEPLUS_HOME>/mateplus.jar:<MATEPLUS_HOME>/lib/anna-3.3.jar:<MATEPLUS_HOME>/lib/liblinear-1.92.jar:<MATEPLUS_HOME>/lib/stanford-corenlp-3.9.1.jar
+lang=eng
+rerank=1
+hybrid=0
+token=
+morph=
+lemma=<MATEPLUS_HOME>/models/CoNLL2009-ST-English-ALL.anna-3.3.lemmatizer.model
+tagger=<MATEPLUS_HOME>/models/CoNLL2009-ST-English-ALL.anna-3.3.postagger.model
+parser=<MATEPLUS_HOME>/models/CoNLL2009-ST-English-ALL.anna-3.3.parser.model
+srl=<MATEPLUS_HOME>/models/srl-EMNLP14+fs-eng.model

@@ -1,0 +1,31 @@
+Setting up MATE ...[eng, -tokenize, -reranker, -lemma, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.lemmatizer.model, -tagger, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.postagger.model, -parser, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.parser.model, -srl, /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model]
+2.59.432   is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 296071
+2.59.438   is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+2.59.438   is2.lemmatizer.Lemmatizer 192:readModel ->  Loading data finished. 
+2.59.438   is2.lemmatizer.Lemmatizer 194:readModel ->  number of params  134217727
+2.59.438   is2.lemmatizer.Lemmatizer 195:readModel ->  number of classes 92
+3.5.90     is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 1613201
+3.5.90     is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+3.5.91     is2.tag.Lexicon 103:<init> ->               Read lexicon with 0 words 
+3.5.92     is2.tag.Tagger 141:readModel ->             Loading data finished. 
+3.5.101    is2.parser.Parser 188:readModel ->          Reading data started
+3.5.128    is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+3.12.153   is2.parser.ParametersFloat 101:read ->      read parameters 134217727 not zero 19957525
+3.12.153   is2.parser.Parser 201:readModel ->          parsing -- li size 134217727
+3.12.158   is2.parser.Parser 211:readModel ->          Stacking false
+3.12.159   is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Used parser   class is2.parser.Parser
+Creation date 2012.11.02 14:33:53
+Training data CoNLL2009-ST-English-ALL.txt.crossannotated
+Iterations    10 Used sentences 10000000
+Cluster       null
+3.12.162   is2.parser.Parser 240:readModel ->          Reading data finnished
+3.12.163   is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Loading pipeline from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Loading reranker from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Done.
+1	Hello	hello	hello	NNP	NNP	_	_	2	2	NMOD	NMOD	_	_
+2	there	there	there	EX	EX	_	_	0	0	NMOD	NMOD	_	_
+
+Hello there 
+

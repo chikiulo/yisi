@@ -1,0 +1,10 @@
+matejar=<YISI_HOME>/obj/srlmate.jar:<MATEPLUS_HOME>/lib/srl.jar:<MATEPLUS_HOME>/lib/anna-3.3.jar:<MATEPLUS_HOME>/lib/opennlp-maxent-3.0.3.jar:<MATEPLUS_HOME>/lib/opennlp-tools-1.5.3.jar:<MATEPLUS_HOME>/lib/liblinear-1.92.jar:<MATEPLUS_HOME>/lib/stanford-corenlp-3.9.1.jar:<MATEPLUS_HOME>/lib/transition-1.30.jar:<MATEPLUS_HOME>/lib/whatswrong-0.2.3.jar:<MATEPLUS_HOME>/lib/seg.jar:<MATEPLUS_HOME>/lib/slf4j-api-1.7.25.jar:<MATEPLUS_HOME>/lib/slf4j-jdk14-1.7.25.jar
+lang=chi
+rerank=0
+hybrid=0
+token=<MATEPLUS_HOME>/models/stanford-segmenter-2015-12-09/data
+morph=
+lemma=
+tagger=<MATEPLUS_HOME>/models/CoNLL2009-ST-Chinese-ALL.anna-3.3.postagger.model
+parser=<MATEPLUS_HOME>/models/CoNLL2009-ST-Chinese-ALL.anna-3.3.parser.model
+srl=<MATEPLUS_HOME>/models/CoNLL2009-ST-Chinese-ALL.anna-3.3.srl-4.1.srl.model

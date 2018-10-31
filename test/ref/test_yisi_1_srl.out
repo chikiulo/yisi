@@ -1,0 +1,43 @@
+Reading labelconfig from ../src/yisi_srl.labelconfig ... Done.
+Reading w2v text model from mini.d300.en
+Size of voc: 500 Dimension: 300
+Finished reading w2v model.
+Learning lex weight from test_ref.en ... Done.
+Setting up MATE ...[eng, -tokenize, -reranker, -lemma, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.lemmatizer.model, -tagger, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.postagger.model, -parser, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.parser.model, -srl, /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model]
+1.2.374    is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 296071
+1.2.379    is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+1.2.380    is2.lemmatizer.Lemmatizer 192:readModel ->  Loading data finished. 
+1.2.380    is2.lemmatizer.Lemmatizer 194:readModel ->  number of params  134217727
+1.2.380    is2.lemmatizer.Lemmatizer 195:readModel ->  number of classes 92
+1.7.997    is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 1613201
+1.7.997    is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+1.7.998    is2.tag.Lexicon 103:<init> ->               Read lexicon with 0 words 
+1.7.999    is2.tag.Tagger 141:readModel ->             Loading data finished. 
+1.8.8      is2.parser.Parser 188:readModel ->          Reading data started
+1.8.34     is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+1.14.601   is2.parser.ParametersFloat 101:read ->      read parameters 134217727 not zero 19957525
+1.14.602   is2.parser.Parser 201:readModel ->          parsing -- li size 134217727
+1.14.607   is2.parser.Parser 211:readModel ->          Stacking false
+1.14.607   is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Used parser   class is2.parser.Parser
+Creation date 2012.11.02 14:33:53
+Training data CoNLL2009-ST-English-ALL.txt.crossannotated
+Iterations    10 Used sentences 10000000
+Cluster       null
+1.14.610   is2.parser.Parser 240:readModel ->          Reading data finnished
+1.14.611   is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Loading pipeline from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Loading reranker from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Done.
+Tokenizing/SRL-ing hyp ... Done.
+Tokenizing/SRL-ing ref ... Done.
+Evaluating line 1
+Evaluating line 2
+Evaluating line 3
+Evaluating line 4
+Evaluating line 5
+Evaluating line 6
+Evaluating line 7
+Evaluating line 8
+Evaluating line 9
+Evaluating line 10

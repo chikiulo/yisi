@@ -1,0 +1,44 @@
+0: A [A0 Republican] [TARGET strategy] [A1 to counter the re - election of Obama]
+0: A Republican strategy to [TARGET counter] [A1 the re - election of Obama]
+0: A Republican strategy to counter the re - [TARGET election] [A1 of Obama]
+1: [A2 Republican] [TARGET leaders] justified their policy by the need to combat electoral fraud .
+1: [A0 Republican leaders] [TARGET justified] [A1 their policy] [A2 by the need to combat electoral fraud] .
+1: Republican leaders justified [A0 their] [TARGET policy] by the need to combat electoral fraud .
+1: Republican leaders justified their policy by the [TARGET need] [A1 to combat electoral fraud] .
+1: [A0 Republican leaders] justified their policy by the need to [TARGET combat] [A1 electoral fraud] .
+1: Republican leaders justified their policy by the need to combat [A1 electoral] [TARGET fraud] .
+2: [AM-DIS However] , [A0 the Brennan Centre] [TARGET considers] [A1 this] [A2 a myth] , [AM-ADV stating that electoral fraud is rarer in the United States than the number of people killed by lightning] .
+2: However , [A0 the Brennan Centre] considers this a myth , [TARGET stating] [A1 that electoral fraud is rarer in the United States than the number of people killed by lightning] .
+2: However , the Brennan Centre considers this a myth , stating that [A1 electoral] [TARGET fraud] is rarer in the United States than the number of people killed by lightning .
+2: However , the Brennan Centre considers this a myth , stating that electoral fraud is rarer in the United States than the [TARGET number] [A1 of people killed by lightning] .
+2: However , the Brennan Centre considers this a myth , stating that electoral fraud is rarer in the United States than the number of [A1 people] [TARGET killed] [A0 by lightning] .
+3: Indeed , [A2 Republican] [TARGET lawyers] identified only 300 cases of electoral fraud in the United States in a decade .
+[AM-DIS Indeed] , [A0 Republican lawyers] [TARGET identified] [A1 only 300 cases of electoral fraud in the United States] [AM-TMP in a decade] .
+3: Indeed , Republican lawyers identified only 300 [TARGET cases] [A1 of electoral fraud] in the United States in a decade .
+3: Indeed , Republican lawyers identified only 300 cases of [A1 electoral] [TARGET fraud] in the United States in a decade .
+4: One thing is certain : [A0 these new provisions] [AM-MOD will] [TARGET have] [A1 a negative impact on voter turn - out] .
+4: One thing is certain : these new provisions will have a [AM-MNR negative] [TARGET impact] [A1 on voter turn - out] .
+4: One thing is certain : these new provisions will have a negative impact on [A1 voter] turn - [TARGET out] .
+5: [AM-ADV In this sense] , [A0 the measures] [AM-MOD will] [AM-MNR partially] [TARGET undermine] [A1 the American democratic system] .
+5: In this sense , the measures will partially undermine the American [A1 democratic] [TARGET system] .
+6: Unlike in Canada , the American States are responsible for the organization of [A2 federal] [TARGET elections] [AM-LOC in the United States] .
+7: It is in this spirit that a [TARGET majority] [A1 of American governments] have passed new laws since 2009 making the registration or voting process more difficult .
+7: It is in this spirit that a majority of [A2 American] [TARGET governments] have passed new laws since 2009 making the registration or voting process more difficult .
+7: It is in this spirit that [A0 a majority of American governments] have [TARGET passed] [A1 new laws] [AM-TMP since 2009] making the registration or voting process more difficult .
+7: It is in this spirit that [A0 a majority of American governments] have passed [A1 new] [TARGET laws] since 2009 making the registration or voting process more difficult .
+7: It is in this spirit that [A0 a majority of American governments] have passed new laws since 2009 [TARGET making] [A1 the registration or voting process] [A2 more difficult] .
+7: It is in this spirit that a majority of American governments have passed new laws since 2009 making the [TARGET registration] or voting process more difficult .
+7: It is in this spirit that a majority of American governments have passed new laws since 2009 making the registration or [TARGET voting] process more difficult .
+7: It is in this spirit that a majority of American governments have passed new laws since 2009 making the registration or [A1 voting] [TARGET process] more difficult .
+8: [A1 This phenomenon] [TARGET gained] [A2 momentum] [AM-TMP following the November 2010 elections , which saw 675 new Republican representatives added in 26 States] .
+8: [A1 This phenomenon] gained [TARGET momentum] following the November 2010 elections , which saw 675 new Republican representatives added in 26 States .
+8: This phenomenon gained momentum [TARGET following] [A2 the November 2010 elections , which saw 675 new Republican representatives added in 26 States] .
+8: This phenomenon gained momentum following the November 2010 [A0 elections] , [R-A0 which] [TARGET saw] [A1 675 new Republican representatives] [C-A1 added in 26 States] .
+8: This phenomenon gained momentum following the November 2010 elections , which saw [A0 675 new] [A4 Republican] [TARGET representatives] added in 26 States .
+8: This phenomenon gained momentum following the November 2010 elections , which saw [A1 675 new Republican representatives] [TARGET added] [AM-LOC in 26 States] .
+9: As a [TARGET result] , 180 bills restricting the exercise of the right to vote in 41 States were introduced in 2011 alone .
+9: As a result , 180 [A0 bills] [TARGET restricting] [A1 the exercise of the right to vote in 41 States] were introduced in 2011 alone .
+9: As a result , 180 bills restricting the [TARGET exercise] [A1 of the right to vote in 41 States] were introduced in 2011 alone .
+9: As a result , 180 bills restricting the exercise of the [TARGET right] [A1 to vote in 41 States] were introduced in 2011 alone .
+9: As a result , 180 bills restricting the exercise of the right to [TARGET vote] [AM-LOC in 41 States] were introduced in 2011 alone .
+9: [AM-DIS As a result] , [A1 180 bills restricting the exercise of the right to vote in 41 States] were [TARGET introduced] [AM-TMP in 2011 alone] .

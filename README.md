@@ -1,6 +1,6 @@
 # YiSi: A Semantic Machine Translation Evaluation Metric for Evaluating Languages with Different Levels of Available Resources
 ## Introduction
-YiSi<sup>a</sup> is a family of semantic machine translation (MT) evaluation metrics 
+YiSi<sup>[a]</sup> is a family of semantic machine translation (MT) evaluation metrics 
 with a flexible architecture for evaluating MT output in languages of different 
 resource levels. Inspired by MEANT 2.0 (Lo, 2017), YiSi-1 measures the similarity 
 between the human references and machine translation by aggregating the weighted
@@ -25,7 +25,7 @@ with an automatic semantic role labeler in the output language. YiSi-2 requires
 bilingual word embeddings and YiSi-2_srl addinionally requires an automatic semantic 
 role labeler for both the input and output language.
 
-<sup>a</sup> YiSi is the romanization of the Cantonese word "意思/meaning".
+<sup>[a]</sup> YiSi is the romanization of the Cantonese word "意思/meaning".
 
 ## Installation
 
@@ -144,6 +144,9 @@ See `$YISI_HOME/test/Makefile` for examples of how to call these programs, if in
 
 ## Acknowledgement
 I would like to give special thanks to the following people:
+
 Darlene Stewart, for her major efforts in defense coding and packaging the software. This release would be in a much worse shape without her filling up the potholes lying everywhere.
+
 Markus Saers, for his accomodations in licensing the command line parser and fulfilling wishlist items in it.
+
 Everyone in the NRC MTP team and Karteek Addanki, Meriem Beloucif, Nedjma Ousidhoum, Andrew Cattle and Marine Carpuat, for the moral support in the critical moment when YiSi was born.

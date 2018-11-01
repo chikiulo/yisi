@@ -139,13 +139,14 @@ Please note: YiSi-2_srl is not ready for release yet, so don't try running `yisi
 which are used primarily for unit-testing.
 See `$YISI_HOME/test/Makefile` for examples of how to call these programs, if interested.
 
-Pretrained word embeddings for evaluating lexical semantic similarity on WMT monolingual data are available for download at:
+## Pretrained word embeddings for YiSi-1
+Unit vectors built by word2vec trained on the latest WMT translation task monolingual data are available for download at:
 http://chikiu-jackie-lo.org/home/index.php/yisi
 
 ## References
 [In progress]
 
-## Acknowledgement
+## Acknowledgements
 I would like to give special thanks to the following people:
 
 Darlene Stewart, for her major efforts in defense coding and packaging the software. This release would be in a much worse shape without her covering up the potholes lying everywhere.

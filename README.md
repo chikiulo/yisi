@@ -1,6 +1,5 @@
 # YiSi: A Semantic Machine Translation Evaluation Metric for Evaluating Languages with Different Levels of Available Resources
 ## Introduction
-|---|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
 YiSi<sup>a</sup> is a family of semantic machine translation (MT) evaluation metrics 
 with a flexible architecture for evaluating MT output in languages of different 
 resource levels. Inspired by MEANT 2.0 (Lo, 2017), YiSi-1 measures the similarity 

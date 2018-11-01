@@ -1,25 +1,32 @@
 # YiSi: A Semantic Machine Translation Evaluation Metric for Evaluating Languages with Different Levels of Available Resources
 ## Introduction
-YiSi[1] is a family of semantic machine translation (MT) evaluation metrics with 
-a flexible architecture for evaluating MT output in languages of different 
+|---|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
+YiSi<sup>a</sup> is a family of semantic machine translation (MT) evaluation metrics 
+with a flexible architecture for evaluating MT output in languages of different 
 resource levels. Inspired by MEANT 2.0 (Lo, 2017), YiSi-1 measures the similarity 
 between the human references and machine translation by aggregating the weighted
 distributional lexical semantic similarity, and, optionally, the shallow semantic 
 structures. YiSi-0 is a degenerate resource-free version using the longest 
 common character substring accuracy to replace distributional semantics for 
-evaluating lexical similarity between the human reference and MT output.
+evaluating lexical similarity between the human reference and MT output. On the 
+other hand, YiSi-2 is the bilingual reference-less version using bilingual word 
+embeddings for evaluating crosslingual lexical semantic similarity between the input 
+and MT output. 
 
-YiSi-1 achieves the highest average correlation with human direct assessment 
-(DA) judgment across all language pairs at system-level and the highest median 
-correlation with DA relative ranking across all language pairs at segment-level 
-in the WMT2018 metrics task (Ma et al., 2018).
+YiSi-1 achieved the highest average correlation with human direct assessment (DA) 
+judgment across all language pairs at system-level and the highest median correlation
+ with DA relative ranking across all language pairs at segment-level in the WMT2018 
+metrics task (Ma et al., 2018). YiSi-1 also successfully served in WMT2018 parallel 
+corpus filtering task while YiSi-2 showed comparable accuracy in the same task.
 
-YiSi-0 is readily available for evaluating all languages while YiSi-1 requires a 
+YiSi-0 is readily available for evaluating all languages. YiSi-1 requires a 
 monolingual corpus in the output language to train the distributional lexical 
-semantics model. YiSi-1_srl is designed for resource-rich languages that are 
-equipped with an automatic semantic role labeler. 
+semantics model. YiSi-1_srl is designed for resource-rich languages that are equipped 
+with an automatic semantic role labeler in the output language. YiSi-2 requires 
+bilingual word embeddings and YiSi-2_srl addinionally requires an automatic semantic 
+role labeler for both the input and output language.
 
-[1] YiSi is the romanization of the Cantonese word "意思/meaning".
+<sup>a</sup> YiSi is the romanization of the Cantonese word "意思/meaning".
 
 ## Installation
 
@@ -134,3 +141,10 @@ which are used primarily for unit-testing.
 See `$YISI_HOME/test/Makefile` for examples of how to call these programs, if interested.
 
 ## References
+[In progress]
+
+## Acknowledgement
+I would like to give special thanks to the following people:
+Darlene Stewart, for her major efforts in defense coding and packaging the software. This release would be in a much worse shape without her filling up the potholes lying everywhere.
+Markus Saers, for his accomodations in licensing the command line parser and fulfilling wishlist items in it.
+Everyone in the NRC MTP team and Karteek Addanki, Meriem Beloucif, Nedjma Ousidhoum, Andrew Cattle and Marine Carpuat, for the moral support in the critical moment when YiSi was born.

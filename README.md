@@ -139,6 +139,9 @@ Please note: YiSi-2_srl is not ready for release yet, so don't try running `yisi
 which are used primarily for unit-testing.
 See `$YISI_HOME/test/Makefile` for examples of how to call these programs, if interested.
 
+Pretrained word embeddings for evaluating lexical semantic similarity on WMT monolingual data are available for download at:
+http://chikiu-jackie-lo.org/home/index.php/yisi
+
 ## References
 [In progress]
 

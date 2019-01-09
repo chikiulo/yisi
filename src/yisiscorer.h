@@ -232,7 +232,7 @@ namespace yisi {
 		      << "'. Check your labelconfig. Exiting..." << std::endl;
 	    exit(1);
 	  }
-	  weight_m[label_m[pred_label]] += 1;
+	  weight_m[label_m[pred_label]] += 0.25;
 	  auto args = it->get_args(*jt);
 	  for (auto kt = args.begin(); kt != args.end(); kt++) {
 	    auto arg_label = it->get_role_label(*kt);
@@ -245,9 +245,6 @@ namespace yisi {
 	  }
 	}
       }
-      //if (predweight_name_m == "Ssst2012") {
-      //   weight_m[label_m["TARGET"]] = 0.25 * weight_m[label_m["ARG0"]];
-      //}
     }
     
     void estimate_weight(std::vector<std::vector<srlgraph_t> > msrls) {

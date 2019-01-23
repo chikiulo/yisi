@@ -1,0 +1,13 @@
+YiSi
+
+Copyright 2018, Her Majesty in Right of Canada /
+Copyright 2018, Sa Majeste la Reine du Chef du Canada
+
+YiSi was developed at:
+Multilingual Text Processing / Traitement multilingue de textes
+Digital Technologies Research Centre / Centre de recherche en technologies numériques
+National Research Council Canada / Conseil national de recherches Canada
+
+The command line parser in src/cmdlp was developed by Markus S. Saers.
+It is covered by its own license (see src/cmdlp/LICENSE).
+The cmdlp package is available from https://github.com/masaers/cmdlp

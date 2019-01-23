@@ -1,0 +1,14 @@
+Constructing lcs lexsim model
+Learning lex weight from test_ref.en ... Done.
+Tokenizing/SRL-ing hyp ... Done.
+Tokenizing/SRL-ing ref ... Done.
+Evaluating line 1
+Evaluating line 2
+Evaluating line 3
+Evaluating line 4
+Evaluating line 5
+Evaluating line 6
+Evaluating line 7
+Evaluating line 8
+Evaluating line 9
+Evaluating line 10

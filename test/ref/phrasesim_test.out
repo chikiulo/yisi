@@ -1,0 +1,6 @@
+Reading w2v text model from mini.d300.en
+Size of voc: 500 Dimension: 300
+Finished reading w2v model.
+Learning lex weight from test_ref.en ... Done.
+The similarity of 'EU' and 'UK' is: (0.487945,0.487945)
+The similarity of 'EU government' and 'UK government' is: (0.743972,0.743972)

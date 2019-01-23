@@ -1,0 +1,27 @@
+Setting up MATE ...[eng, -tokenize, -reranker, -lemma, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.lemmatizer.model, -tagger, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.postagger.model, -parser, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.parser.model, -srl, /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model]
+31.57.128  is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 296071
+31.57.134  is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+31.57.134  is2.lemmatizer.Lemmatizer 192:readModel ->  Loading data finished. 
+31.57.134  is2.lemmatizer.Lemmatizer 194:readModel ->  number of params  134217727
+31.57.134  is2.lemmatizer.Lemmatizer 195:readModel ->  number of classes 92
+32.3.353   is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 1613201
+32.3.353   is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+32.3.355   is2.tag.Lexicon 103:<init> ->               Read lexicon with 0 words 
+32.3.356   is2.tag.Tagger 141:readModel ->             Loading data finished. 
+32.3.366   is2.parser.Parser 188:readModel ->          Reading data started
+32.3.392   is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+32.10.885  is2.parser.ParametersFloat 101:read ->      read parameters 134217727 not zero 19957525
+32.10.886  is2.parser.Parser 201:readModel ->          parsing -- li size 134217727
+32.10.891  is2.parser.Parser 211:readModel ->          Stacking false
+32.10.892  is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Used parser   class is2.parser.Parser
+Creation date 2012.11.02 14:33:53
+Training data CoNLL2009-ST-English-ALL.txt.crossannotated
+Iterations    10 Used sentences 10000000
+Cluster       null
+32.10.895  is2.parser.Parser 240:readModel ->          Reading data finnished
+32.10.896  is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Loading pipeline from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Loading reranker from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Done.
+Done parsing 10 srlgraphs.

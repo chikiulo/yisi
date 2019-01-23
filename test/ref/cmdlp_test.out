@@ -1,0 +1,28 @@
+
+usage: ../bin/cmdlp_test -[-b]eta
+
+-[-a]lpha|--ALPHA=10
+    The alpha value.
+-[-b]eta=0
+    The beta value.
+-[-f]lip=no
+    A switch
+--on=no
+    Turns on
+--off=yes
+    Turns off
+-[-p]ath|--PATH=a_path
+    The path name.
+-[-s]tr=
+    Some input strings
+--cipher=
+    Encrypts the provided strings.
+-[-c]onst='"pi":3.14'
+    Named numeric constants.
+--dumpto=
+    Dumps the parameters, as undestood by the program, to a config file that can later be used to rerun with the same settings. Leave empty to not dump. Use '-' to dump to standard output.
+--config=
+    Read parameters from the provided file as if they were provided in the same position on the command line.
+-[-h]elp=yes
+    Prints the help message and exits normally.
+

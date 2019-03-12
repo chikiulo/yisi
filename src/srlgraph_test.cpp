@@ -33,11 +33,10 @@ int main(int argc, char* argv[])
       sents.push_back(line);
    }
 
-   cout << "reading ASSERT format parse file" << endl;
-
+   cout << "Reading ASSERT format parse file." << endl;
    vector<srlgraph_t> srls = read_srl(sents, string(argv[2]));
-   cout << "print srlparses" << endl;
 
+   cout << "Printing srl parses:" << endl;
    for (vector<srlgraph_t>::iterator it = srls.begin(); it != srls.end();
       it++) {
       cout << (*it);

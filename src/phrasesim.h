@@ -85,7 +85,7 @@ namespace yisi {
          p.add(make_knob(reflexweight_path_m))
             .fallback("")
             .desc("[file: path to reference lex weight model file "
-                  "| learn: monolingual corpus in reference language to learn")
+                  "| learn: monolingual corpus in reference language to learn]")
             .name("lexweight-path")
             .name("reflexweight-path")
             ;
@@ -98,7 +98,7 @@ namespace yisi {
          p.add(make_knob(hyplexweight_path_m))
             .fallback("")
             .desc("[file: path to hypotheses lex weight model file "
-                  "| learn: monolingual corpus in hypothesis language to learn")
+                  "| learn: monolingual corpus in hypothesis language to learn]")
             .name("hyplexweight-path")
             ;
          p.add(make_knob(phrasesim_name_m))

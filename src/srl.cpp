@@ -38,7 +38,8 @@ srl_t::srl_t(const string name, const string path) {
    } else if (name == "") {
       srl_p = new srltok_t();
    } else {
-      cerr << "ERROR: Unknown srl model type " << name << endl;
+      cerr << "ERROR: Unknown srl model type: " << name << ". Exiting..."<< endl;
+      exit(1);
    }
 }
 

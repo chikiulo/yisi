@@ -37,9 +37,11 @@ vector<srlgraph_t> yisi::read_srl(vector<string> sents, string parsefile) {
 
    if (parsefile != "") {
       ifstream ifs(parsefile.c_str(), ifstream::in);
+      int line_number = 0;
       while (!ifs.eof()) {
          string line;
          getline(ifs, line);
+         ++line_number;
          if (line == "") {
             break;
          }
@@ -58,7 +60,11 @@ vector<srlgraph_t> yisi::read_srl(vector<string> sents, string parsefile) {
 
          while (!iss.eof()) {
             string s;
-            iss >> s;
+            if (!(iss >> s)) {
+               cerr << "ERROR: bad format found in parse file: " << parsefile
+                    << ", line " << line_number << ": " << line << endl;
+               break;
+            }
             char first = s.at(0);
             char last = s.at(s.length() - 1);
 
@@ -95,6 +101,7 @@ vector<srlgraph_t> yisi::read_srl(vector<string> sents, string parsefile) {
                curr_tok_id++;
             }
          } // while (!iss.eof())
+
          if ((int)tmptok.size() > 0) {
             result.at(id).set_tokens(tmptok);
          }

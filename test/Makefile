@@ -45,7 +45,7 @@ SIMPLE_TEST_PROGS += biw2v_test
 SIMPLE_TEST_PROGS += w2v_test
 SIMPLE_TEST_PROGS += maxmatching_test
 SIMPLE_TEST_PROGS += srlutil_test
-#SIMPLE_TEST_PROGS += srlgraph_test
+SIMPLE_TEST_PROGS += srlgraph_test
 SIMPLE_TEST_PROGS += yisiscorer_test
 
 ifdef WITH_SRLMATE

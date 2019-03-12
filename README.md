@@ -45,7 +45,7 @@ role labeler for both the input and output language.
 - YiSi depends on mateplus, an extended version of the mate-tools semantic role labeler.
 You can download and install mateplus from:  
   https://github.com/microth/mateplus
-- Make sure to install all the mateplus dependencies listed in its README.
+- Make sure to install all the mateplus basic dependencies listed in its README, i.e. without FrameNet and ParZu extensions. 
 - Define the `MATEPLUS_HOME` environment variable:
   ```bash
   export MATEPLUS_HOME=/path/to/mateplus_install_director
@@ -94,7 +94,7 @@ For example:
 ```bash
 > cd $YISI_HOME/test
 
-> cat yisi_1.config
+> cat yisi-1.config
 srclang=de
 tgtlang=en
 lexsim-type=w2v
@@ -109,7 +109,7 @@ hyp-file=test_hyp.en
 sntscore-file=test_hyp.sntyisi1
 docscore-file=test_hyp.docyisi1
 
-> yisi --config yisi_1.config
+> yisi --config yisi-1.config
 Reading w2v text model from mini.d300.en
 Size of voc: 500 Dimension: 300
 Finished reading w2v model.

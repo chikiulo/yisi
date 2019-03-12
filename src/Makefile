@@ -146,7 +146,7 @@ clean: clean.mplsconfig
 	$(RM) *~
 
 clean.mplsconfig:
-	$(RM) -f en.mplsconfig de.mplsconfig
+	$(RM) -f en.mplsconfig de.mplsconfig es.mplsconfig zh.mplsconfig
 
 clean.test:
 	$(MAKE) -C ../test clean

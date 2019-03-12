@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
       s2 = argv[3];
       cout << "Sim = " << w2vtxt.get_sim(s1, s2, yisi::REF_MODE) << endl;
 
-   } else {
+   } else if (argc < 3){
       while (true) {
          cout << "Input two strings:" << endl;
          cin >> s1;

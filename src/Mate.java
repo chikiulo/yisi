@@ -14,6 +14,7 @@
 package yisi;
 import se.lth.cs.srl.corpus.Sentence;
 import se.lth.cs.srl.options.CompletePipelineCMDLineOptions;
+import se.lth.cs.srl.options.FullPipelineOptions;
 import se.lth.cs.srl.util.FileExistenceVerifier;
 import se.lth.cs.srl.CompletePipeline;
 import se.lth.cs.srl.languages.Language;
@@ -21,11 +22,19 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.lang.Class;
+import java.lang.reflect.Method;
 
 public class Mate {
-   protected CompletePipeline pipeline = null;
+   // protected CompletePipeline pipeline = null;
+   protected Object pipeline = null;
+   protected URLClassLoader classLoader = null;
+   Class<?> class_CompletePipeline = null;
 
-   public String init(String lang,
+   public String init(String mate_jars,
+                      String lang,
                       boolean rerank,
                       boolean hybrid,
                       String token,
@@ -37,6 +46,16 @@ public class Mate {
       String result= new String();
       try {
          System.setOut(System.err);
+
+         // Each Mate object has it's own class loader with it's own "classpath".
+         String[] mateJars = mate_jars.split(":");
+         URL[] urls = new URL[mateJars.length];
+         for (int i = 0; i < mateJars.length; ++i) {
+            urls[i] = new File(mateJars[i]).toURI().toURL();
+//            System.err.println("URL: " + urls[i]);
+         }
+         classLoader = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());
+
          ArrayList<String> argsBuilder = new ArrayList<String>();
          argsBuilder.add(lang);
          argsBuilder.add("-tokenize");
@@ -73,13 +92,31 @@ public class Mate {
          String[] args = new String[argsBuilder.size()];
          argsBuilder.toArray(args);
          System.err.println(java.util.Arrays.toString(args));
-         CompletePipelineCMDLineOptions options = new CompletePipelineCMDLineOptions();
-         options.parseCmdLineArgs(args);
-         String error = FileExistenceVerifier.verifyCompletePipelineAllNecessaryModelFiles(options);
+
+         Class<?> class_FullPipelineOptions = classLoader.loadClass("se.lth.cs.srl.options.FullPipelineOptions");
+         // CompletePipelineCMDLineOptions options = new CompletePipelineCMDLineOptions();
+         Class<?> class_CompletePipelineCMDLineOptions = classLoader.loadClass("se.lth.cs.srl.options.CompletePipelineCMDLineOptions");
+         Object options = class_CompletePipelineCMDLineOptions.newInstance();
+         // options.parseCmdLineArgs(args);
+         Method method_parseCmdLineArgs = class_CompletePipelineCMDLineOptions.getMethod("parseCmdLineArgs", String[].class);
+//         System.err.println("Got Method " + method_parseCmdLineArgs);
+         method_parseCmdLineArgs.invoke(options, (Object)args);
+
+         // String error = FileExistenceVerifier.verifyCompletePipelineAllNecessaryModelFiles(options);
+         Class<?> class_FileExistenceVerifier = classLoader.loadClass("se.lth.cs.srl.util.FileExistenceVerifier");
+         Method method_verifyCompletePipelineAllNecessaryModelFiles = 
+               class_FileExistenceVerifier.getMethod("verifyCompletePipelineAllNecessaryModelFiles", class_FullPipelineOptions);
+//         System.err.println("Got Method " + method_verifyCompletePipelineAllNecessaryModelFiles);
+         String error = (String) method_verifyCompletePipelineAllNecessaryModelFiles.invoke(null, options);
+
          if (error != null){
             result += error + "\n";
          } else {
-            pipeline = CompletePipeline.getCompletePipeline(options);
+            // pipeline = CompletePipeline.getCompletePipeline(options);
+            class_CompletePipeline = classLoader.loadClass("se.lth.cs.srl.CompletePipeline");
+            Method method_getCompletePipeline = class_CompletePipeline.getMethod("getCompletePipeline", class_FullPipelineOptions);
+//            System.err.println("Got Method " + method_getCompletePipeline);
+            pipeline = method_getCompletePipeline.invoke(null, options);
          }
       } catch (Exception e){
          result += e.getMessage();
@@ -90,7 +127,10 @@ public class Mate {
    public String parse(String sentence) {
       String result = null;
       try {
-         result = pipeline.parse(sentence).toString();
+         // result = pipeline.parse(sentence).toString();
+         Method method_parse = class_CompletePipeline.getMethod("parse", String.class);
+//         System.err.println("Got Method " + method_parse);
+         result = method_parse.invoke(pipeline, sentence).toString();
       } catch (Exception e) {
          e.printStackTrace();
          System.err.println(sentence);

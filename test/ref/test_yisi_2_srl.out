@@ -1,0 +1,71 @@
+Reading labelconfig from ../src/yisi_srl.labelconfig ... Done.
+Reading w2v text model from mini.d300.en
+Size of voc: 500 Dimension: 300
+Finished reading w2v model.
+Reading w2v text model from mini.d300.de
+Size of voc: 500 Dimension: 300
+Finished reading w2v model.
+Setting up MATE ...[eng, -tokenize, -reranker, -lemma, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.lemmatizer.model, -tagger, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.postagger.model, -parser, /home/das011/u/sandboxes/mateplus/models/CoNLL2009-ST-English-ALL.anna-3.3.parser.model, -srl, /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model]
+34.12.536  is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 296071
+34.12.541  is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+34.12.541  is2.lemmatizer.Lemmatizer 192:readModel ->  Loading data finished. 
+34.12.542  is2.lemmatizer.Lemmatizer 194:readModel ->  number of params  134217727
+34.12.542  is2.lemmatizer.Lemmatizer 195:readModel ->  number of classes 92
+34.18.323  is2.data.ParametersFloat 121:read ->        read parameters 134217727 not zero 1613201
+34.18.324  is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+34.18.325  is2.tag.Lexicon 103:<init> ->               Read lexicon with 0 words 
+34.18.326  is2.tag.Tagger 141:readModel ->             Loading data finished. 
+34.18.336  is2.parser.Parser 188:readModel ->          Reading data started
+34.18.364  is2.data.Cluster 113:<init> ->              Read cluster with 0 words 
+34.25.37   is2.parser.ParametersFloat 101:read ->      read parameters 134217727 not zero 19957525
+34.25.37   is2.parser.Parser 201:readModel ->          parsing -- li size 134217727
+34.25.44   is2.parser.Parser 211:readModel ->          Stacking false
+34.25.44   is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Used parser   class is2.parser.Parser
+Creation date 2012.11.02 14:33:53
+Training data CoNLL2009-ST-English-ALL.txt.crossannotated
+Iterations    10 Used sentences 10000000
+Cluster       null
+34.25.46   is2.parser.Parser 240:readModel ->          Reading data finnished
+34.25.47   is2.parser.Extractor 56:initStat ->         mult  (d4) 
+Loading pipeline from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Loading reranker from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-eng.model
+Done.
+Setting up MATE ...[ger, -tokenize, -reranker, -hybrid, -token, /home/das011/u/sandboxes/mateplus/models/de-token.bin, -lemma, /home/das011/u/sandboxes/mateplus/models/lemma-ger-3.6.model, -tagger, /home/das011/u/sandboxes/mateplus/models/tag-ger-3.6.model, -parser, /home/das011/u/sandboxes/mateplus/models/pet-ger-S2a-40-0.25-0.1-2-2-ht4-hm4-kk0, -srl, /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-ger.model]
+34.47.11   is2.data.ParametersFloat 142:read ->        read parameters 50000000 not zero 840044
+34.47.16   is2.data.Cluster 111:<init> ->              Read cluster with 0 words 
+34.47.17   is2.lemmatizer.Lemmatizer 185:readModel ->  Loading data finished. 
+34.47.17   is2.lemmatizer.Lemmatizer 187:readModel ->  number of params  50000000
+34.47.17   is2.lemmatizer.Lemmatizer 188:readModel ->  number of classes 336
+34.47.25   is2.transitionS2a.Parser 720:readModel ->   Reading data started
+34.47.196  is2.data.Cluster 111:<init> ->              Read cluster with 0 words 
+34.47.196  is2.transitionS2a.Lexicon 296:read ->       read 0 lexicon entries.
+35.2.492   is2.transitionS2a.ParametersFloat 197:read -> read parameters 300000001 not zero 64569303
+35.2.493   is2.transitionS2a.Parser 734:readModel ->   parsing -- li size 300000001
+35.2.499   is2.transitionS2a.ExtractorR 82:initStat -> values 1824
+35.5.298   is2.transitionS2a.ParametersFloat 197:read -> read parameters 70000001 not zero 1456038
+35.8.436   is2.transitionS2a.ParametersFloat 197:read -> read parameters 70000001 not zero 5355132
+35.8.437   is2.transitionS2a.Parser 776:readModel ->   projective	false
+config {tags-considered=2.0, threshold-tag=0.25, beam=40.0, tagger-iterations=2.0, mthreshold-tag=0.1, morph-tags-considered=2.0, beam-tag=4.0, beam-morph=4.0}
+1st  2nd abcd 3rd ab
+Used parser   class is2.transitionS2apply.Parser
+Creation date 2014.02.23 18:43:23
+Training data corpora/Tiger2Dep//tiger2dep.standard.train.ltm
+Iterations    25 Used sentences 10000000
+Cluster       null
+35.8.444   is2.transitionS2a.Parser 813:readModel ->   Reading data finnished
+Loading pipeline from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-ger.model
+Loading reranker from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-ger.model
+Done.
+Tokenizing/SRL-ing hyp ... Done.
+Tokenizing/SRL-ing inp ... Done.
+Evaluating line 1
+Evaluating line 2
+Evaluating line 3
+Evaluating line 4
+Evaluating line 5
+Evaluating line 6
+Evaluating line 7
+Evaluating line 8
+Evaluating line 9
+Evaluating line 10

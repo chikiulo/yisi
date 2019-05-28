@@ -49,11 +49,11 @@ SIMPLE_TEST_PROGS += srlgraph_test
 SIMPLE_TEST_PROGS += yisiscorer_test
 
 ifdef WITH_SRLMATE
-   SIMPLE2_TEST_PROGS += srl_test
-   SIMPLE2_TEST_PROGS += srlmate_test
+   SIMPLE_SRL_TEST_PROGS += srl_test
+   SIMPLE_SRL_TEST_PROGS += srlmate_test
 endif
 
-ALL_SIMPLE_TEST_PROGS := $(CMDLP_TEST_PROGS) $(SIMPLE_TEST_PROGS) $(SIMPLE2_TEST_PROGS)
+ALL_SIMPLE_TEST_PROGS := $(CMDLP_TEST_PROGS) $(SIMPLE_TEST_PROGS) $(SIMPLE_SRL_TEST_PROGS)
 
 all: $(ALL_SIMPLE_TEST_PROGS)
 all: test_yisi
@@ -67,13 +67,18 @@ compare.%: %
 
 SUB:="s/^[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*  */00.00.000 /"
 
-compare2.%: %
+compare_w_java_log.%: %
 	diff <(cat $< | sed -e $(SUB)) <(cat ref/$< | sed -e $(SUB)) -q
+
+compare_w_alt.%: %
+	diff $< ref/$< -q || diff -s $< ref/$<.alt -q
+
+# Simple tests
 
 .PHONY: $(ALL_SIMPLE_TEST_PROGS)
 $(CMDLP_TEST_PROGS): %: compare.%.out
 $(SIMPLE_TEST_PROGS): %: compare.%.out
-$(SIMPLE2_TEST_PROGS): %: compare2.%.out
+$(SIMPLE_SRL_TEST_PROGS): %: compare_w_java_log.%.out
 
 cmdlp_test.1.out: ARGS = --beta 0 --settings <(echo hello) --refs test_ref.en --help
 cmdlp_test.2.out: ARGS = --beta 0 --settings <(echo hello) --refs /etc/timezone
@@ -93,18 +98,19 @@ srl_test.out: ARGS = mate ../src/en.mplsconfig test_ref.en test_ref.en.srl
 srlmate_test.out: ARGS = ../src/en.mplsconfig <<<'Hello there'
 
 $(CMDLP_TEST_PROGS): BIN = ../src/cmdlp/build/bin
-$(SIMPLE_TEST_PROGS) $(SIMPLE2_TEST_PROGS): BIN = ../bin
+$(SIMPLE_TEST_PROGS) $(SIMPLE_SRL_TEST_PROGS): BIN = ../bin
 
-compare2.srl_test.out: compare.test_ref.en.srl
+compare_w_java_log.srl_test.out: compare_w_alt.test_ref.en.srl
 
 test_ref.en.srl: srl_test.out ;
 
 $(addsuffix .out, $(ALL_SIMPLE_TEST_PROGS)): %.out:
 	$(BIN)/$(firstword $(subst ., ,$*)) $(ARGS) &> $@
 
+# YiSi tests
+
 YSFX_NOSRL := 0 1 2
-#YSFX_SRL := 1_srl 2_srl
-YSFX_SRL := 1_srl
+YSFX_SRL := 1_srl 2_srl
 
 .PHONY: test_yisi
 .PHONY: $(foreach n,$(YSFX_NOSRL),test_yisi_$n)
@@ -118,8 +124,11 @@ ifdef WITH_SRLMATE
 test_yisi: $(foreach n,$(YSFX_SRL),test_yisi_$n)
 endif
 
-$(foreach n,$(YSFX_SRL),test_yisi_$n): test_yisi_%: compare2.test_yisi_%.out
-$(foreach n,$(YSFX_SRL),compare2.test_yisi_$n.out): compare2.test_yisi_%.out: compare.test_hyp.docyisi% compare.test_hyp.sntyisi%
+# YiSi SRL tests have alternate reference files too because mateplus may return
+# an alternate parse.
+
+$(foreach n,$(YSFX_SRL),test_yisi_$n): test_yisi_%: compare_w_java_log.test_yisi_%.out
+$(foreach n,$(YSFX_SRL),compare_w_java_log.test_yisi_$n.out): compare_w_java_log.test_yisi_%.out: compare_w_alt.test_hyp.docyisi% compare_w_alt.test_hyp.sntyisi%
 
 test_yisi_%.out: yisi-%.config
 	../bin/yisi --config $< &> $@

@@ -14,14 +14,17 @@
 #   export MATEPLUS_HOME=~/u/sandboxes/mateplus
 MATEPLUS_HOME ?= ~/u/tools/MATE/mateplus-master/src
 
+MATETOOLS_HOME ?= $(MATEPLUS_HOME)
+
 JAVA_HOME ?= /space/group/nrc_ict/pkgs/centos6/gcc-4.9.3/jdk1.8.0_131
 
 MATEPLUS_PATH ?= $(MATEPLUS_HOME)/mateplus.jar
+MATETOOLS_SRL_PATH ?= $(MATETOOLS_HOME)/srl.jar
 
-ifneq ("$(wildcard $(MATEPLUS_PATH))","")
+ifneq ("$(wildcard $(MATEPLUS_PATH))$(wildcard $(MATETOOLS_SRL_PATH))","")
    WITH_SRLMATE ?= True
 else
-   $(info *** mateplus.jar not found)
+   $(info *** mateplus.jar and srl.jar not found)
 endif
 
 ifneq (clean, $(MAKECMDGOALS))
@@ -107,7 +110,10 @@ scripts: | ../bin
 	cd ../obj/java && jar -cvf ../srlmate.jar *
 
 en.mplsconfig de.mplsconfig es.mplsconfig zh.mplsconfig: %: %.template
-	sed -e "s#<YISI_HOME>/#$(dir $(CURDIR))#g; s#<MATEPLUS_HOME>#$(MATEPLUS_HOME)#g;" < $< > $@
+	sed -e "s#<YISI_HOME>#$(dir $(CURDIR))#g; s#//#/#g;" \
+	    -e "s#<MATEPLUS_HOME>#$(MATEPLUS_HOME)#g;" \
+	    -e "s#<MATETOOLS_HOME>#$(MATETOOLS_HOME)#g;" \
+	    < $< > $@
 
 $(SRLMATE_BINS): LDFLAGS += -L${JAVA_HOME}/jre/lib/amd64/server
 $(SRLMATE_BINS): LIBRARIES += -ljvm

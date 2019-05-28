@@ -1,10 +1,15 @@
-matejar=<YISI_HOME>/obj/srlmate.jar:<MATEPLUS_HOME>/lib/srl.jar:<MATEPLUS_HOME>/lib/anna-3.3.jar:<MATEPLUS_HOME>/lib/opennlp-maxent-3.0.3.jar:<MATEPLUS_HOME>/lib/opennlp-tools-1.5.3.jar:<MATEPLUS_HOME>/lib/liblinear-1.92.jar:<MATEPLUS_HOME>/lib/stanford-corenlp-3.9.1.jar:<MATEPLUS_HOME>/lib/transition-1.30.jar:<MATEPLUS_HOME>/lib/whatswrong-0.2.3.jar:<MATEPLUS_HOME>/lib/seg.jar:<MATEPLUS_HOME>/lib/slf4j-api-1.7.25.jar:<MATEPLUS_HOME>/lib/slf4j-jdk14-1.7.25.jar
+# yisi_home is needed to locate srlmate.jar within YiSi.
+yisi_home=<YISI_HOME>
+# mate_jars is a colon (:) separated list of all jar files needed to run
+# mateplus or mate-tools for this language.
+mate_jars=<MATETOOLS_HOME>/lib/srl.jar:<MATETOOLS_HOME>/lib/anna-3.3.jar:<MATETOOLS_HOME>/lib/opennlp-maxent-3.0.2-incubating.jar:<MATETOOLS_HOME>/lib/opennlp-tools-1.5.2-incubating.jar:<MATETOOLS_HOME>/lib/liblinear-1.51-with-deps.jar:<MATETOOLS_HOME>/lib/whatswrong-0.2.3.jar
+#mate_jars=<MATETOOLS_HOME>/lib/srl.jar:<MATETOOLS_HOME>/lib/anna-3.3.jar:<MATETOOLS_HOME>/lib/opennlp-maxent-3.0.3.jar:<MATETOOLS_HOME>/lib/opennlp-tools-1.5.3.jar:<MATETOOLS_HOME>/lib/liblinear-1.92.jar:<MATETOOLS_HOME>/lib/stanford-corenlp-3.9.1.jar:<MATETOOLS_HOME>/lib/whatswrong-0.2.3.jar:/<MATETOOLS_HOME>/lib/slf4j-api-1.7.25.jar:<MATETOOLS_HOME>/lib/slf4j-jdk14-1.7.25.jar
 lang=spa
 rerank=0
 hybrid=0
 token=
-morph=MATEPLUS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.morphtagger.model
-lemma=MATEPLUS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.lemmatizer.model
-tagger=MATEPLUS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.postagger.model
-parser=MATEPLUS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.parser.model
-srl=MATEPLUS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.srl-4.21.srl-rr.model
+morph=<MATETOOLS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.morphtagger.model
+lemma=<MATETOOLS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.lemmatizer.model
+tagger=<MATETOOLS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.postagger.model
+parser=<MATETOOLS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.parser.model
+srl=<MATETOOLS_HOME>/models/CoNLL2009-ST-Spanish-ALL.anna-3.3.srl-4.21.srl-rr.model

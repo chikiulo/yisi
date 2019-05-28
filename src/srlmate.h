@@ -40,8 +40,9 @@ namespace yisi {
       virtual std::vector<srlgraph_t> parse(std::vector<std::string> sents);
    private:
       std::string noparse(std::vector<std::string> tokens);
-      JavaVM* jvm_m;
-      JNIEnv* jen_m;
+      static JavaVM* jvm_m;
+      static JNIEnv* jen_m;
+      static int obj_cnt_m;
       jclass mate_class_m;
       jobject mate_object_m;
    };

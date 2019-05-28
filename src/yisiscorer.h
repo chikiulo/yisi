@@ -228,7 +228,7 @@ namespace yisi {
 	for (auto jt = preds.begin(); jt != preds.end(); jt++) {
 	  auto pred_label = it->get_role_label(*jt);
 	  if (label_m.find(pred_label) == label_m.end()) {
-	    std::cerr << "ERROR: Unknown srl label '" << pred_label
+	    std::cerr << "ERROR: Unknown predicate label '" << pred_label
 		      << "'. Check your labelconfig. Exiting..." << std::endl;
 	    exit(1);
 	  }
@@ -237,7 +237,7 @@ namespace yisi {
 	  for (auto kt = args.begin(); kt != args.end(); kt++) {
 	    auto arg_label = it->get_role_label(*kt);
 	    if (label_m.find(arg_label) == label_m.end()) {
-	      std::cerr << "ERROR: Unknown srl label '" << arg_label
+	      std::cerr << "ERROR: Unknown argument label '" << arg_label
 			<< "'. Check your labelconfig. Exiting..." << std::endl;
 	      exit(1);
 	    }
@@ -250,7 +250,7 @@ namespace yisi {
     void estimate_weight(std::vector<std::vector<srlgraph_t> > msrls) {
       for (auto it = msrls.begin(); it != msrls.end(); it++) {
 	estimate_weight(*it);
-         }
+      }
     }
     
     std::vector<srlgraph_t> inpsrlparse(std::vector<std::string> inpsents) {
@@ -272,7 +272,7 @@ namespace yisi {
       }
       return result;
     }
-    
+      
     std::vector<srlgraph_t> hypsrlparse(std::vector<std::string> hypsents) {
       //std::cerr << "Tokenizing/SRL-ing the hypotheses ... ";
       std::vector<srlgraph_t> result = hypsrl_p->parse(hypsents);

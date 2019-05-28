@@ -31,7 +31,7 @@ namespace yisi {
 
    class lexweightmodel_t {
    public:
-      lexweightmodel_t():eps_m(0.00001) {}
+      lexweightmodel_t():N(0.0) {}
       lexweightmodel_t(std::vector<std::vector<std::string> > tokens) {
          std::cerr << "ERROR: lexweight model is not learning from the reference" << std::endl;
       }
@@ -42,9 +42,10 @@ namespace yisi {
 
       virtual double get_weight(std::string lex);
       void write(std::ostream& os);
+      void read(std::string path);
    protected:
       std::map<std::string, double> lexweight_m;
-      double eps_m;
+      double N;
    }; // class lexweightmodel_t
 
    class lexweightuniform_t:public lexweightmodel_t {

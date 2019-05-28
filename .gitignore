@@ -1,0 +1,14 @@
+# Build/install directories
+bin/
+dep/
+obj/
+
+# mplsconfig files that are generated from templates
+src/en.mplsconfig
+src/de.mplsconfig
+src/es.mplsconfig
+src/zh.mplsconfig
+
+# all backup files
+src/*~
+src/*.bak

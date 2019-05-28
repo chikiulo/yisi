@@ -200,18 +200,6 @@ namespace yisi {
          return result;
       }
 
-      std::vector<std::vector<std::string> > collect_ngram(int n, std::vector<std::string>& tokens) {
-         std::vector < std::vector<std::string> > result;
-         for (int i = 0; i <= (int)tokens.size() - n; i++) {
-            std::vector < std::string > ngram;
-            for (int j = i; j < i + n; j++) {
-               ngram.push_back(tokens[j]);
-            }
-            result.push_back(ngram);
-         }
-         return result;
-      }
-
       std::pair<double, double> operator()(std::vector<std::string> s1tokens,
                                            std::vector<std::string>& hyptokens, int mode) {
          std::pair<double, double> result;
@@ -321,11 +309,11 @@ namespace yisi {
          std::vector<std::vector<std::string> > hypngrams;
 
          if ((int)s1tokens.size() < n_m || (int)hyptokens.size() < n_m) {
-            s1ngrams = collect_ngram(std::min(s1tokens.size(), hyptokens.size()), s1tokens);
-            hypngrams = collect_ngram(std::min(s1tokens.size(), hyptokens.size()), hyptokens);
+	   s1ngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), s1tokens);
+           hypngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), hyptokens);
          } else {
-            s1ngrams = collect_ngram(n_m, s1tokens);
-            hypngrams = collect_ngram(n_m, hyptokens);
+           s1ngrams = yisi::collect_ngram(n_m, s1tokens);
+           hypngrams = yisi::collect_ngram(n_m, hyptokens);
          }
          //std::cerr << s1ngrams.size() << std::endl;
          //std::cerr << hypngrams.size()<<std::endl;

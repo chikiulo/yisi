@@ -52,6 +52,18 @@ string yisi::join(const vector<string> tokens, const string d) {
    return result;
 }
 
+vector<vector<string> > yisi::collect_ngram(int n, vector<string>& tokens) {
+  vector <vector<string> > result;
+  for (int i = 0; i <= (int)tokens.size() - n; i++) {
+    vector <string > ngram;
+    for (int j = i; j < i + n; j++) {
+      ngram.push_back(tokens[j]);
+    }
+    result.push_back(ngram);
+  }
+  return result;
+}
+
 vector<string> yisi::read_file(string filename) {
    vector<string> result;
    ifstream fin(filename.c_str());

@@ -1,6 +1,6 @@
 /**
    Unit test for the command-line option library, which was cloned from:
-   https://github.com/masaers/cmdlp (v0.4.1 tag)
+   https://github.com/masaers/cmdlp (v0.4.2 tag)
 
    Thanks Markus!
    Consider cloning the original repository if you like it.
@@ -15,7 +15,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
-
+#include <map>
 
 /**
   Cryptic read function.
@@ -126,6 +126,9 @@ int main(const int argc, const char** argv) {
     return o.exit_code();
   }
 
+  for (const auto& file : o.args) {
+    cout << "File: " << file << endl;
+  }
   for (string line; getline(*o.settings, line); /**/) {
     cout << "From settings: '" << line << "'" << endl;
   }

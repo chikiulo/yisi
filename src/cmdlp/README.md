@@ -73,7 +73,7 @@ A config file is a text file that sets the parameters to your program much like 
 alpha=10
 smooth=no
 ```
-Notice that switches are set rather than flipped from an assumed current position. For containers as values, you can either give the name on multiple rows, give multiple values  on a single line, or any mix of the two strategies (there is no way to &ldquo;reset&rd1uo; the container).
+Notice that switches are set rather than flipped from an assumed current position. For containers as values, you can either give the name on multiple rows, give multiple values  on a single line, or any mix of the two strategies (there is no way to &ldquo;reset&rdquo; the container).
 
 ### Other files
 Sometimes it is useful to have a whole file be part of the parameters to your program. In the `grep` example, `grep` allows you to give a file containing patterns to match, which is extremely useful every now and then. It may also be useful to be able to separate output more finely than is possible with standard out/error/log.
@@ -104,7 +104,7 @@ if (verdict) {
 This represents a file that we will read from. You give either a filename or a dash for standard input, and the value functions as a smart pointer to an input stream (dereferences to an `istream&`). If a file that cannot be opened for input is given, parameter validation fails.
 
 **(`optional_`)`ofile`**
-This represents a file that we will write to. You give either a filename or a dash for standard input, and the value functions as a smart pointer to an input stream (dereferences to an `ostream&`). If a file that cannot be opened for output is given, parameter validation fails. In addition, `optional_ofile` can be cast to a `bool` to determine whether it was given or not; giving an invalid file fails validation, but giving no file does not.
+This represents a file that we will write to. You give either a filename or a dash for standard output, and the value functions as a smart pointer to an input stream (dereferences to an `ostream&`). If a file that cannot be opened for output is given, parameter validation fails. In addition, `optional_ofile` can be cast to a `bool` to determine whether it was given or not; giving an invalid file fails validation, but giving no file does not.
 
 **`ifile_prefix`**
 This represents a collection of files with a common prefix that we will read from. It expands into a range of `ifile`s sharing the given prefix. Since there seems to still be some issues with using the C++17 filesystem header in a non-hacky way, this feature requires a POSIX-compatible filesystem &ndash; if you build it on a non-POSIX-compatible filesystem, using `ifile_prefix`es gives a compilation error.
@@ -118,6 +118,20 @@ In addition to the `argc` and `argv` parameters, you can also pass in a configur
 
 **Pretty printing paragraphs**
 The method for pretty printing paragraphs is completely generic and contained in the `paragraph.hpp` header. It provides a modifier for a stream that changes the behavior of the stream to print paragraphs instead of lines while the modifier is in scope. Feel free to use it elsewhere!
+
+Example:
+```
+{
+  // cout will print paragraphs (72 character lines with a 4 sapce
+  // left margin and a 2 space paragraph break indentation)
+  // as long as p is in scope.
+  const auto p = paragraph(std::cout, 72, 4, 2);
+  // write to cout just like you would!
+  std::cout << "My first long paragraph." << std::endl;
+  std::cout << "My second, even longer, paragraph." << std::endl;
+}
+// std::cout no longer prints paragraphs since p went out of scope.
+```
 
 
 ### Advanced usage

@@ -1,6 +1,6 @@
 /**
    This file is part of the command-line option library, which was cloned from:
-   https://github.com/masaers/cmdlp (v0.4.1 tag)
+   https://github.com/masaers/cmdlp (v0.4.2 tag)
 
    Thanks Markus!
    Consider cloning the original repository if you like it.
@@ -18,15 +18,6 @@
 // C
 #include <climits>
 #include <cstdlib>
-
-// static bool is_directory(const std::string& path) {
-// 	bool result = false;
-// 	struct stat statbuf;
-// 	if (stat(path.c_str(), &statbuf) == 0) {
-// 		result = S_ISDIR(statbuf.st_mode);
-// 	}
-// 	return result;
-// }
 
 static bool is_file(const std::string& path) {
 	bool result = false;
@@ -52,7 +43,7 @@ static bool prefix_match(const std::string& prefix, const char* filename) {
 static std::string normalize_path(const std::string& path) {
 	static thread_local char norm_buffer[PATH_MAX];
 	if (realpath(path.c_str(), norm_buffer) == nullptr) {
-		throw std::runtime_error("Failed call realpath.");
+		throw std::runtime_error("Failed to call realpath.");
 	}
 	return norm_buffer;
 }

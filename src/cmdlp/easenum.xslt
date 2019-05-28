@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This file is part of the command-line option library, which was cloned from: -->
-<!-- https://github.com/masaers/cmdlp (v0.4.1 tag) -->
+<!-- https://github.com/masaers/cmdlp (v0.4.2 tag) -->
 
 <!-- Thanks Markus! -->
 <!-- Consider cloning the original repository if you like it. -->

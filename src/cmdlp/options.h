@@ -1,6 +1,6 @@
 /**
    This file is part of the command-line option library, which was cloned from:
-   https://github.com/masaers/cmdlp (v0.4.1 tag)
+   https://github.com/masaers/cmdlp (v0.4.2 tag)
 
    Thanks Markus!
    Consider cloning the original repository if you like it.
@@ -98,7 +98,8 @@ com::masaers::cmdlp::options<options_T...>::options(const int argc, const char**
   if (cfg.config()) {
     p.add(make_knob(configs))
     .name("config")
-    .desc("Read parameters from the provided file as if they were provided in the same position on the command line.")
+    .desc("Read parameters from the provided file as if they were provided "
+      "in the same position on the command line.")
     ;
   }
   if (cfg.help()) {
@@ -110,6 +111,7 @@ com::masaers::cmdlp::options<options_T...>::options(const int argc, const char**
   }
   error_count_m += p.parse(argc, argv, back_inserter(args));
   error_count_m += p.validate();
+  error_count_m += p.additional_errors();
   if (help_needed()) {
     cerr << endl << "usage: " << argv[0] << p.usage();
     if (! cfg.argdesc().empty()) {

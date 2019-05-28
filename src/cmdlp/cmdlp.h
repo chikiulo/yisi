@@ -1,6 +1,6 @@
 /**
    This command-line option library was cloned from:
-   https://github.com/masaers/cmdlp (v0.4.1 tag)
+   https://github.com/masaers/cmdlp (v0.4.2 tag)
 
    Thanks Markus!
    Consider cloning the original repository if you like it.
@@ -56,9 +56,11 @@ namespace com { namespace masaers { namespace cmdlp {
     inline void operator()(T& value, const char* cstr) const {
       std::istringstream s(cstr);
       if (s >> value) {
-      // Value successfully read
+        // Value successfully read
       } else {
-        throw std::runtime_error("Failed to read value.");
+        std::ostringstream s;
+        s << "Failed to read value from '" << cstr << "'.";
+        throw std::runtime_error(s.str());
       }
     }
   };
@@ -298,14 +300,17 @@ namespace com { namespace masaers { namespace cmdlp {
   class value_option<config_files> : public option_crtp<value_option<config_files>, config_files> {
     typedef option_crtp<value_option<config_files>, config_files> base_class;
   public:
-    value_option(config_files& config_files) : base_class(), config_files_m(&config_files), error_count_m(0) {}
+    value_option(config_files& config_files) : base_class(), config_files_m(&config_files) {}
     virtual ~value_option() {}
     virtual void assign(const char* str);
-    virtual bool validate() { return true; }
+    virtual bool validate() {
+      // Note that errors are directly registered with the parser rather
+      // than invalidating the config_files knob.
+      return true;
+    }
     virtual void evaluate(std::ostream& os) const;
   private:
     config_files* config_files_m;
-    std::size_t error_count_m;
   }; // value_option<config_files>
 
   /**
@@ -400,8 +405,9 @@ namespace com { namespace masaers { namespace cmdlp {
 
   class parser {
   public:
-    parser() : options_m(), bindings_m(), flags_m(), names_m(), erros_m(&std::cerr) {}
-    parser(std::ostream& erros) : options_m(), bindings_m(), flags_m(), names_m(), erros_m(&erros) {}
+    friend class value_option<config_files>;
+    parser() : options_m(), bindings_m(), flags_m(), names_m(), erros_m(&std::cerr), error_count_m(0) {}
+    parser(std::ostream& erros) : options_m(), bindings_m(), flags_m(), names_m(), erros_m(&erros), error_count_m(0) {}
     ~parser();
     std::string usage() const;
     std::string help() const;
@@ -437,6 +443,7 @@ namespace com { namespace masaers { namespace cmdlp {
       return bind(opt, std::string(name));
     }
     bool bind(option_i* opt, const std::string& name);
+    const std::size_t additional_errors() const { return error_count_m; }
   private:
     static void print_call(std::ostream& s, const std::vector<std::string>& names, std::vector<char> flags, bool print_all);
     std::vector<option_i*> options_m;
@@ -444,6 +451,7 @@ namespace com { namespace masaers { namespace cmdlp {
     std::unordered_map<char, option_i*> flags_m;
     std::unordered_map<std::string, option_i*> names_m;
     std::ostream* erros_m;
+    std::size_t error_count_m;
   }; // parser
   
   

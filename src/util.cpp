@@ -29,13 +29,15 @@ using namespace std;
 
 vector<string> yisi::tokenize(string sent, char d, bool keep_empty) {
    //cerr << "Tokenizing " << sent << " by " << d << endl;
-   vector<string> result;
-   istringstream iss(sent);
-   while (!iss.eof()) {
-      string token;
-      getline(iss, token, d);
-      if (token != "" || keep_empty) {
-         result.push_back(token);
+   vector <string> result;
+   if (sent != "") {
+      istringstream iss(sent);
+      while (!iss.eof()) {
+         string token;
+         getline(iss, token, d);
+         if (token != "" || keep_empty) {
+            result.push_back(token);
+         }
       }
    }
    //cerr << endl;
@@ -50,18 +52,6 @@ string yisi::join(const vector<string> tokens, const string d) {
       result += *it;
    }
    return result;
-}
-
-vector<vector<string> > yisi::collect_ngram(int n, vector<string>& tokens) {
-  vector <vector<string> > result;
-  for (int i = 0; i <= (int)tokens.size() - n; i++) {
-    vector <string > ngram;
-    for (int j = i; j < i + n; j++) {
-      ngram.push_back(tokens[j]);
-    }
-    result.push_back(ngram);
-  }
-  return result;
 }
 
 vector<string> yisi::read_file(string filename) {

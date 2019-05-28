@@ -73,43 +73,33 @@ srlmate_t::srlmate_t(string path) {
       getline(iss, cfgv);
       if (cfgn == "yisi_home") {
          yisi_home = cfgv;
-      }
-      else if (cfgn == "mate_jars") {
+      } else if (cfgn == "mate_jars") {
          mate_jars = cfgv;
-      }
-      else if (cfgn == "lang") {
+      } else if (cfgn == "lang") {
          lang = cfgv;
-      }
-      else if (cfgn == "rerank") {
+      } else if (cfgn == "rerank") {
          if ((cfgv.compare("0") == 0) || (cfgv.compare("false") == 0)) {
             rerank = false;
          } else {
             rerank = true;
          }
-      }
-      else if (cfgn == "hybrid") {
+      } else if (cfgn == "hybrid") {
          if ((cfgv.compare("0") == 0) || (cfgv.compare("false") == 0)) {
             hybrid = false;
          } else {
             hybrid = true;
          }
-      }
-      else if (cfgn == "token") {
+      } else if (cfgn == "token") {
          token = cfgv;
-      }
-      else if (cfgn == "morph") {
+      } else if (cfgn == "morph") {
          morph = cfgv;
-      }
-      else if (cfgn == "lemma") {
+      } else if (cfgn == "lemma") {
          lemma = cfgv;
-      }
-      else if (cfgn == "tagger") {
+      } else if (cfgn == "tagger") {
          tagger = cfgv;
-      }
-      else if (cfgn == "parser") {
+      } else if (cfgn == "parser") {
          parser = cfgv;
-      }
-      else if (cfgn == "srl") {
+      } else if (cfgn == "srl") {
          srl = cfgv;
       }
    }
@@ -187,18 +177,19 @@ string srlmate_t::noparse(vector<string> tokens) {
    return yisi::strip(result);
 }
 
-string srlmate_t::jrun(string sent) {
+string srlmate_t::jrun(sent_t* sent) {
    string result = "";
-   vector<string> tokens = yisi::tokenize(sent);
+   vector<string> tokens = sent->get_tokens();
+   string sent_str = join(tokens);
 
-   if (!sent.empty() && tokens.size() <= 100) {
+   if (0 < tokens.size() && tokens.size() <= 100) {
       JNI_SAFE_CALL(methid, jen_m,
                     GetMethodID(mate_class_m, "parse",
                                 "(Ljava/lang/String;)Ljava/lang/String;"));
       try {
          JNI_SAFE_CALL(jparse, jen_m,
                        CallObjectMethod(mate_object_m, methid,
-                                        jen_m->NewStringUTF(sent.c_str())));
+                                        jen_m->NewStringUTF(sent_str.c_str())));
          result = jen_m->GetStringUTFChars((jstring)jparse, NULL);
       } catch (...) {
          result += noparse(tokens);
@@ -209,13 +200,13 @@ string srlmate_t::jrun(string sent) {
    return result;
 }
 
-srlgraph_t srlmate_t::parse(string sent) {
+srlgraph_t srlmate_t::parse(sent_t* sent) {
    string srl_str = jrun(sent);
-   srlgraph_t result = read_conll09(srl_str);
+   srlgraph_t result = read_conll09(srl_str, sent);
    return result;
 }
 
-vector<srlgraph_t> srlmate_t::parse(vector<string> sents) {
+vector<srlgraph_t> srlmate_t::parse(vector<sent_t*> sents) {
    //batch srl-ing
    vector<srlgraph_t> result;
    for (auto it = sents.begin(); it != sents.end(); it++) {

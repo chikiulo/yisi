@@ -6,8 +6,10 @@ Size of voc: 500 Dimension: 300
 Finished reading w2v model.
 Learning lex weight from test_hyp.en ... Done.
 Learning lex weight from test_inp.de ... Done.
-Tokenizing/SRL-ing hyp ... Done.
-Tokenizing/SRL-ing inp ... Done.
+Reading hyp sents... Done.
+Reading inp sents... Done.
+Creating hyp srlgraphs... Done.
+Creating inp srlgraphs... Done.
 Evaluating line 1
 Evaluating line 2
 Evaluating line 3

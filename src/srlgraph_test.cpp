@@ -22,26 +22,21 @@
 using namespace std;
 using namespace yisi;
 
-int main(int argc, char* argv[])
-{
-   ifstream txtstr(argv[1], ifstream::in);
+int main(int argc, char* argv[]) {
 
-   vector<string> sents;
-   string line;
-
-   while (getline(txtstr, line)) {
-      sents.push_back(line);
-   }
+   vector<sent_t*> sents = read_sent("word", string(argv[1]));
 
    cout << "Reading ASSERT format parse file." << endl;
    vector<srlgraph_t> srls = read_srl(sents, string(argv[2]));
 
    cout << "Printing srl parses:" << endl;
-   for (vector<srlgraph_t>::iterator it = srls.begin(); it != srls.end();
-      it++) {
+   for (auto it = srls.begin(); it != srls.end(); it++) {
       cout << (*it);
+   }
+   for (auto it = sents.begin(); it != sents.end(); it++) {
+      delete *it;
+      *it = NULL;
    }
 
    return 0;
 }
-

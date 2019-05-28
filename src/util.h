@@ -25,7 +25,17 @@
 namespace yisi {
    std::vector<std::string> tokenize(std::string sent, char d = ' ', bool keep_empty = false);
    std::string join(const std::vector<std::string> tokens, const std::string d = " ");
-   std::vector<std::vector<std::string> > collect_ngram(int n, std::vector<std::string>& tokens);
+   template<class T> std::vector<std::vector<T> > collect_ngram(int n, std::vector<T>& tokens){
+      std::vector<std::vector<T> > result;
+      for (int i = 0; i <= (int)tokens.size() - n; i++) {
+         std::vector<T> ngram;
+         for (int j = i; j < i + n; j++) {
+            ngram.push_back(tokens[j]);
+         }
+         result.push_back(ngram);
+      }
+      return result;
+   }
    std::vector<std::string> read_file(std::string filename);
    void open_ofstream(std::ofstream& fout, std::string filename);
    std::string lowercase(std::string token);

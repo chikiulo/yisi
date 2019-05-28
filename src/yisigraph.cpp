@@ -22,7 +22,8 @@
 using namespace yisi;
 using namespace std;
 
-yisigraph_t::yisigraph_t(const vector<srlgraph_t> refsrlgraph, const srlgraph_t hypsrlgraph) {
+yisigraph_t::yisigraph_t(const vector<srlgraph_t> refsrlgraph, 
+			 const srlgraph_t hypsrlgraph) {
    refsrlgraph_m = refsrlgraph;
    hypsrlgraph_m = hypsrlgraph;
    inp_b = false;
@@ -32,7 +33,7 @@ yisigraph_t::yisigraph_t(const vector<srlgraph_t> refsrlgraph, const srlgraph_t 
    //cout << refsrlgraph_m;
    //cout << "hypsrlgraph:" << endl;
    //cout << hypsrlgraph_m;
-   //cout<<"Done."<<endl;
+   //cout<<"Done."<<endl;   
 }
 
 yisigraph_t::yisigraph_t(const vector<srlgraph_t> refsrlgraph,
@@ -82,6 +83,7 @@ size_t yisigraph_t::get_refsize() {
    return refsrlgraph_m.size();
 }
 
+/*
 double yisigraph_t::get_sentlength(int mode, int refid) {
    switch (mode) {
       case yisi::INP_MODE:
@@ -104,10 +106,11 @@ double yisigraph_t::get_sentlength(int mode, int refid) {
          }
          break;
       default:
-         cerr << "ERROR: Unknown mode in sent length. Contact Jackie. Exiting..." << endl;
+	cerr << "ERROR: Unknown mode in sent length. Contact Jackie. Exiting..." << endl;
          exit(1);
    }
 }
+*/
 
 double yisigraph_t::get_sentsim(int mode, int refid) {
    double result = 0.0;
@@ -203,6 +206,7 @@ vector<yisigraph_t::srlnid_type> yisigraph_t::get_args(srlnid_type roleid, int m
       }
 }
 
+/*
 vector<string>& yisigraph_t::get_sentence(int mode, int refid) {
    switch (mode) {
       case yisi::INP_MODE:
@@ -231,12 +235,13 @@ vector<string>& yisigraph_t::get_sentence(int mode, int refid) {
          exit(1);
    }
 }
+*/
 
-vector<string> yisigraph_t::get_role_fillers(srlnid_type roleid, int mode, int refid) {
+vector<string> yisigraph_t::get_role_filler_units(srlnid_type roleid, int mode, int refid) {
    switch (mode) {
       case yisi::INP_MODE:
          if (inp_b) {
-            return inpsrlgraph_m.get_role_fillers(roleid);
+            return inpsrlgraph_m.get_role_filler_units(roleid);
          } else {
             cerr << "ERROR: YiSi graph with no input sentence. "
                  << "Failed to get input role fillers. Exiting..." << endl;
@@ -244,11 +249,11 @@ vector<string> yisigraph_t::get_role_fillers(srlnid_type roleid, int mode, int r
          }
          break;
       case yisi::HYP_MODE:
-         return hypsrlgraph_m.get_role_fillers(roleid);
+         return hypsrlgraph_m.get_role_filler_units(roleid);
          break;
       case yisi::REF_MODE:
          if (-1 < refid && refid < (int)refsrlgraph_m.size()) {
-            return refsrlgraph_m[refid].get_role_fillers(roleid);
+            return refsrlgraph_m[refid].get_role_filler_units(roleid);
          } else {
             cerr << "ERROR: refid (" << refid << ") out of range [0," << refsrlgraph_m.size()
                  << "]. Failed to get reference role fillers. Exiting..." << endl;
@@ -437,29 +442,29 @@ double yisigraph_t::spanlength(span_type span) {
 }
 
 void yisigraph_t::print(ostream& os) {
-   string h = yisi::join(hypsrlgraph_m.get_sentence(), " ");
+   string h = yisi::join(hypsrlgraph_m.get_role_filler_units(hypsrlgraph_m.get_root()), " ");
    //os << h <<endl;
    for (size_t i = 0; i < refalignment_m.size(); i++) {
-      string r = yisi::join(refsrlgraph_m[i].get_sentence(), " ");
+      string r = yisi::join(refsrlgraph_m[i].get_role_filler_units(refsrlgraph_m[i].get_root()), " ");
       //os << r <<endl;
       for (auto jt = refalignment_m[i].begin(); jt != refalignment_m[i].end(); jt++) {
          auto refnid = jt->first;
          auto hypnid = (jt->second).first;
          double sim = (jt->second).second;
-         r = yisi::join(refsrlgraph_m[i].get_role_fillers(refnid), " ");
-         h = yisi::join(hypsrlgraph_m.get_role_fillers(hypnid), " ");
+         r = yisi::join(refsrlgraph_m[i].get_role_filler_units(refnid), " ");
+         h = yisi::join(hypsrlgraph_m.get_role_filler_units(hypnid), " ");
          os << r << "\t" << h << "\t" << sim << endl;
       }
    }
    if (inp_b) {
-      string inp = yisi::join(inpsrlgraph_m.get_sentence(), " ");
+      string inp = yisi::join(inpsrlgraph_m.get_role_filler_units(inpsrlgraph_m.get_root()), " ");
       os << inp << endl;
       for (auto kt = inpalignment_m.begin(); kt != inpalignment_m.end(); kt++) {
          auto inpnid = kt->first;
          auto hypnid = (kt->second).first;
          double sim = (kt->second).second;
-         inp = yisi::join(inpsrlgraph_m.get_role_fillers(inpnid), " ");
-         h = yisi::join(hypsrlgraph_m.get_role_fillers(hypnid), " ");
+         inp = yisi::join(inpsrlgraph_m.get_role_filler_units(inpnid), " ");
+         h = yisi::join(hypsrlgraph_m.get_role_filler_units(hypnid), " ");
          os << inp << "\t" << h << "\t" << sim << endl;
       }
    }

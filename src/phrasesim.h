@@ -51,68 +51,68 @@ namespace yisi {
          using namespace com::masaers::cmdlp;
 
          p.add(make_knob(lexsim_name_m))
-            .fallback("exact")
-            .desc("Type of lex sim model: [exact(default)|ibm1|w2v|ibmw2v]")
-            .name("lexsim-type")
-            ;
+               .fallback("exact")
+               .desc("Type of lex sim model: [exact(default)|ibm1|w2v|ibmw2v]")
+               .name("lexsim-type")
+               ;
          p.add(make_knob(outlexsim_path_m))
-            .fallback("")
-            .desc("Path to lex sim model file in output language")
-            .name("outlexsim-path")
-            ;
+               .fallback("")
+               .desc("Path to lex sim model file in output language")
+               .name("outlexsim-path")
+               ;
          p.add(make_knob(inplexsim_path_m))
-            .fallback("")
-            .desc("Path to lex sim model file in input language")
-            .name("inplexsim-path")
-            ;
+               .fallback("")
+               .desc("Path to lex sim model file in input language")
+               .name("inplexsim-path")
+               ;
          p.add(make_knob(inplexweight_name_m))
-            .fallback("uniform")
-            .desc("Type of input lex weight model: [uniform(default)|file|learn]")
-            .name("inplexweight-type")
-            ;
+               .fallback("uniform")
+               .desc("Type of input lex weight model: [uniform(default)|file|learn]")
+               .name("inplexweight-type")
+               ;
          p.add(make_knob(inplexweight_path_m))
-            .fallback("")
-            .desc("[file: path to input lex weight model file "
-                  "| learn: monolingual corpus in input language to learn]")
-            .name("inplexweight-path")
-            ;
+               .fallback("")
+               .desc("[file: path to input lex weight model file "
+                     "| learn: monolingual corpus in input language to learn]")
+               .name("inplexweight-path")
+               ;
          p.add(make_knob(reflexweight_name_m))
-            .fallback("uniform")
-            .desc("Type of reference lex weight model: [uniform(default)|file|learn]")
-            .name("lexweight-type")
-            .name("reflexweight-type")
-            ;
+               .fallback("uniform")
+               .desc("Type of reference lex weight model: [uniform(default)|file|learn]")
+               .name("lexweight-type")
+               .name("reflexweight-type")
+               ;
          p.add(make_knob(reflexweight_path_m))
-            .fallback("")
-            .desc("[file: path to reference lex weight model file "
-                  "| learn: monolingual corpus in reference language to learn]")
-            .name("lexweight-path")
-            .name("reflexweight-path")
-            ;
+               .fallback("")
+               .desc("[file: path to reference lex weight model file "
+                     "| learn: monolingual corpus in reference language to learn]")
+               .name("lexweight-path")
+               .name("reflexweight-path")
+               ;
          p.add(make_knob(hyplexweight_name_m))
-            .fallback("")
-            .desc("Type of hypotheses lex weight model: [uniform|file|learn] "
-                  "(default: same as reflexweight-type")
-            .name("hyplexweight-type")
-            ;
+               .fallback("")
+               .desc("Type of hypotheses lex weight model: [uniform|file|learn] "
+                     "(default: same as reflexweight-type")
+               .name("hyplexweight-type")
+               ;
          p.add(make_knob(hyplexweight_path_m))
-            .fallback("")
-            .desc("[file: path to hypotheses lex weight model file "
-                  "| learn: monolingual corpus in hypothesis language to learn]")
-            .name("hyplexweight-path")
-            ;
+               .fallback("")
+               .desc("[file: path to hypotheses lex weight model file "
+                     "| learn: monolingual corpus in hypothesis language to learn]")
+               .name("hyplexweight-path")
+               ;
          p.add(make_knob(phrasesim_name_m))
-            .fallback("nwpr")
-            .desc("Type of phrase sim model: [nwpf: n-gram idf-weighted precision/recall]")
-            .name("psname")
-            .name("phrasesim-type")
-            ;
+               .fallback("nwpr")
+               .desc("Type of phrase sim model: [nwpf: n-gram idf-weighted precision/recall]")
+               .name("psname")
+               .name("phrasesim-type")
+               ;
          p.add(make_knob(n_m))
-            .fallback(0)
-            .desc("N-gram size")
-            .name("ngram-size")
-            .name("n")
-            ;
+               .fallback(0)
+               .desc("N-gram size")
+               .name("ngram-size")
+               .name("n")
+               ;
       }
    }; // struct phrasesim_options
 
@@ -245,7 +245,56 @@ namespace yisi {
          } else {
             mpscache_m[s1txt][hyptxt] = s;
          }
-         //std::cerr << "(" << s1txt << " ||| " << hyptxt << " ||| " << s.first << "," << s.second << ")" << std::endl;
+         return s;
+      };
+
+      std::pair<double, double> operator()(std::vector<std::string> s1tokens,
+                                           std::vector<std::string>& hyptokens,
+                                           std::vector<std::vector<double> > s1embs,
+                                           std::vector<std::vector<double> > hypembs, int mode) {
+         std::pair<double, double> result;
+         if (s1tokens.size() == 0 || hyptokens.size() == 0) {
+            result = std::make_pair(0.0, 0.0);
+            return result;
+         }
+         std::string s1txt;
+         size_t i;
+         for (i = 0; i < s1tokens.size() - 1; i++) {
+            s1txt = s1txt + s1tokens[i] + " ";
+         }
+         s1txt = s1txt + s1tokens[i];
+         std::string hyptxt;
+         size_t j;
+         for (j = 0; j < hyptokens.size() - 1; j++) {
+            hyptxt = hyptxt + hyptokens[j] + " ";
+         }
+         hyptxt = hyptxt + hyptokens[j];
+
+         if (mode == yisi::INP_MODE) {
+            if (xpscache_m.find(s1txt) != xpscache_m.end()) {
+               if (xpscache_m[s1txt].find(hyptxt) != xpscache_m[s1txt].end()) {
+                  return xpscache_m[s1txt][hyptxt];
+               }
+            } else {
+               std::map<std::string, std::pair<double, double> > c;
+               xpscache_m[s1txt] = c;
+            }
+         } else {
+            if (mpscache_m.find(s1txt) != mpscache_m.end()) {
+               if (mpscache_m[s1txt].find(hyptxt) != mpscache_m[s1txt].end()) {
+                  return mpscache_m[s1txt][hyptxt];
+               }
+            } else {
+               std::map<std::string, std::pair<double, double> > c;
+               mpscache_m[s1txt] = c;
+            }
+         }
+         auto s = nwpr(s1tokens, hyptokens, s1embs, hypembs, mode);
+         if (mode == yisi::INP_MODE) {
+            xpscache_m[s1txt][hyptxt] = s;
+         } else {
+            mpscache_m[s1txt][hyptxt] = s;
+         }
          return s;
       };
 
@@ -255,7 +304,46 @@ namespace yisi {
          //std::cerr<<"ng: " << hyptokens.size()<<std::endl;
          if (s1tokens.size() != hyptokens.size()) {
             std::cerr << "ERROR: Failed to compute n-gram similarity - "
-                      << "s1 n-gram size != hyp n-gram size. Exiting..." << std::endl;
+               << "s1 n-gram size != hyp n-gram size. Exiting..." << std::endl;
+            exit(1);
+         }
+         double presult = 0.0;
+         double rresult = 0.0;
+         double plen = 0.0;
+         double rlen = 0.0;
+         for (size_t i = 0; i < s1tokens.size(); i++) {
+            double rw = 0.0;
+            double pw = 0.0;
+            double ls = 0.0;
+            if (mode == yisi::INP_MODE) {
+               rw = (*inplexweight_p)(s1tokens[i]);
+            } else if (mode == yisi::REF_MODE) {
+               rw = (*reflexweight_p)(s1tokens[i]);
+            }
+            pw = (*hyplexweight_p)(hyptokens[i]);
+            //std::cerr << s1tokens[i] << " ||| " << hyptokens[i] <<" ||| "<<rw <<" ||| " <<pw << " ||| ";
+            ls = lexsim_p->get_sim(s1tokens[i], hyptokens[i], mode);
+            //std::cerr << ls << std::endl;
+            rresult += rw * ls;
+            presult += pw * ls;
+            rlen += rw;
+            plen += pw;
+         }
+         //std::cerr<<"(" << presult / plen<<","<<rresult / rlen<< ")"<<std::endl;
+         std::pair<double, double> result = std::make_pair(presult / plen, rresult / rlen);
+         return result;
+      }
+
+      std::pair<double, double> ngram(std::vector<std::string>& s1tokens,
+                                      std::vector<std::string>& hyptokens,
+                                      std::vector<std::vector<double> > s1embs,
+                                      std::vector<std::vector<double> > hypembs,
+                                      int mode) {
+         //std::cerr<<"ng: " << s1tokens.size()<<std::endl;
+         //std::cerr<<"ng: " << hyptokens.size()<<std::endl;
+         if (s1tokens.size() != hyptokens.size()) {
+            std::cerr << "ERROR: Failed to compute n-gram similarity - "
+               << "s1 n-gram size != hyp n-gram size. Exiting..." << std::endl;
             exit(1);
          }
          double presult = 0.0;
@@ -273,7 +361,7 @@ namespace yisi {
             }
             pw = (*hyplexweight_p)(hyptokens[i]);
             //std::cerr << s1tokens[i] << " ||| " << hyptokens[i];
-            ls = lexsim_p->get_sim(s1tokens[i], hyptokens[i], mode);
+            ls = lexsim_p->get_sim(s1embs[i], hypembs[i]);
             //std::cerr << ls << std::endl;
             rresult += rw * ls;
             presult += pw * ls;
@@ -300,71 +388,93 @@ namespace yisi {
 
       std::pair<double, double> nwpr(std::vector<std::string>& s1tokens,
                                      std::vector<std::string>& hyptokens, int mode) {
-         std::string s1txt = yisi::join(s1tokens);
-         std::string hyptxt = yisi::join(hyptokens);
-         //std::cerr << s1txt << std::endl;
-         //std::cerr<<hyptxt<<std::endl;
-
          std::vector<std::vector<std::string> > s1ngrams;
          std::vector<std::vector<std::string> > hypngrams;
 
          if ((int)s1tokens.size() < n_m || (int)hyptokens.size() < n_m) {
-	   s1ngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), s1tokens);
-           hypngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), hyptokens);
+            s1ngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), s1tokens);
+            hypngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), hyptokens);
          } else {
-           s1ngrams = yisi::collect_ngram(n_m, s1tokens);
-           hypngrams = yisi::collect_ngram(n_m, hyptokens);
+            s1ngrams = yisi::collect_ngram(n_m, s1tokens);
+            hypngrams = yisi::collect_ngram(n_m, hyptokens);
          }
-         //std::cerr << s1ngrams.size() << std::endl;
-         //std::cerr << hypngrams.size()<<std::endl;
          double nom = 0.0;
          double denom = 0.0;
 
          for (size_t ii = 0; ii < s1ngrams.size(); ii++) {
-            std::string s1ngtxt = yisi::join(s1ngrams[ii]);
-
             double sim = 0.0;
             double rw = ngramlw(s1ngrams[ii], mode);
 
             for (size_t jj = 0; jj < hypngrams.size(); jj++) {
-               std::string hypngtxt = yisi::join(hypngrams[jj]);
-               //std::cerr << "ng sim of " << s1ngtxt << "," << hypngtxt << std::endl;
                sim = std::fmax(sim, ngram(s1ngrams[ii], hypngrams[jj], mode).second);
             }
             nom += rw * sim;
             denom += rw;
          }
          double recall = nom / denom;
-         //std::cerr << "nnwr: " << recall << std::endl;
-         //if (a >= 1) {
-         //   return recall;
-         //}
-
          nom = 0.0;
          denom = 0.0;
-         //std::cerr<<hypngrams.size()<<std::endl;
-         //std::cerr<<refngrams.size()<<std::endl;
          for (size_t iii = 0; iii < hypngrams.size(); iii++) {
             double hs = 0.0;
             double hw = ngramlw(hypngrams[iii], yisi::HYP_MODE);
-            //std::cerr <<"here1"<<std::endl;
             for (size_t jjj = 0; jjj < s1ngrams.size(); jjj++) {
-               //std::cerr<<"here2"<<std::endl;
                hs = std::fmax(hs, ngram(s1ngrams[jjj], hypngrams[iii], mode).first);
             }
             nom += hw * hs;
             denom += hw;
          }
          double precision = nom / denom;
-         //std::cerr << "nnwp: " << precision << std::endl;
-         //if (a<=0){
-         //   return precision;
-         //}
-         //if ((a*precision+(1-a)*recall) > 0.0){
-         //   return (precision*recall)/(a*precision+(1-a)*recall);
-         //} else {
-         //   return 0.0;
-         //}
+         std::pair<double, double> result = std::make_pair(precision, recall);
+         return result;
+      }
+
+      std::pair<double, double> nwpr(std::vector<std::string>& s1tokens,
+                                     std::vector<std::string>& hyptokens,
+                                     std::vector<std::vector<double> > s1embs,
+                                     std::vector<std::vector<double> > hypembs,
+                                     int mode) {
+         std::vector<std::vector<std::string> > s1ngrams;
+         std::vector<std::vector<std::string> > hypngrams;
+         std::vector<std::vector<std::vector<double> > > s1embngrams;
+         std::vector<std::vector<std::vector<double> > > hypembngrams;
+
+         if ((int)s1tokens.size() < n_m || (int)hyptokens.size() < n_m) {
+            s1ngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), s1tokens);
+            hypngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), hyptokens);
+            s1embngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), s1embs);
+            hypembngrams = yisi::collect_ngram(std::min(s1tokens.size(), hyptokens.size()), hypembs);
+         } else {
+            s1ngrams = yisi::collect_ngram(n_m, s1tokens);
+            hypngrams = yisi::collect_ngram(n_m, hyptokens);
+            s1embngrams = yisi::collect_ngram(n_m, s1embs);
+            hypembngrams = yisi::collect_ngram(n_m, hypembs);
+         }
+         double nom = 0.0;
+         double denom = 0.0;
+
+         for (size_t ii = 0; ii < s1ngrams.size(); ii++) {
+            double sim = 0.0;
+            double rw = ngramlw(s1ngrams[ii], mode);
+
+            for (size_t jj = 0; jj < hypngrams.size(); jj++) {
+               sim = std::fmax(sim, ngram(s1ngrams[ii], hypngrams[jj], s1embngrams[ii], hypembngrams[jj], mode).second);
+            }
+            nom += rw * sim;
+            denom += rw;
+         }
+         double recall = nom / denom;
+         nom = 0.0;
+         denom = 0.0;
+         for (size_t iii = 0; iii < hypngrams.size(); iii++) {
+            double hs = 0.0;
+            double hw = ngramlw(hypngrams[iii], yisi::HYP_MODE);
+            for (size_t jjj = 0; jjj < s1ngrams.size(); jjj++) {
+               hs = std::fmax(hs, ngram(s1ngrams[jjj], hypngrams[iii], s1embngrams[jjj], hypembngrams[iii], mode).first);
+            }
+            nom += hw * hs;
+            denom += hw;
+         }
+         double precision = nom / denom;
          std::pair<double, double> result = std::make_pair(precision, recall);
          return result;
       }

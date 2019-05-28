@@ -30,8 +30,8 @@ namespace yisi {
       srl_t();
       srl_t(const std::string name, const std::string path="");
       ~srl_t();
-      srlgraph_t parse(std::string sent);
-      std::vector<srlgraph_t> parse(std::vector<std::string> sents);
+      srlgraph_t parse(sent_t* sent);
+      std::vector<srlgraph_t> parse(std::vector<sent_t*> sents);
    private:
       srlmodel_t* srl_p;
    }; // class srl_t

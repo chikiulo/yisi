@@ -29,7 +29,7 @@
 
 namespace yisi {
 
-   class yisigraph_t{
+   class yisigraph_t {
    public:
       typedef srlgraph_t::span_type span_type;
       typedef srlgraph_t::label_type label_type;
@@ -49,12 +49,12 @@ namespace yisi {
 
       bool withinp();
       size_t get_refsize();
-      double get_sentlength(int mode, int refid=-1);
+      // double get_sentlength(int mode, int refid=-1);
       double get_sentsim(int mode, int refid=-1);
       std::vector<srlnid_type> get_preds(int mode, int refid=-1);
       std::vector<srlnid_type> get_args(srlnid_type roleid, int mode, int refid=-1);
-      std::vector<std::string>& get_sentence(int mode, int refid=-1);
-      std::vector<std::string> get_role_fillers(srlnid_type roleid, int mode, int refid=-1);
+      // std::vector<std::string>& get_sentence(int mode, int refid=-1);
+      std::vector<std::string> get_role_filler_units(srlnid_type roleid, int mode, int refid=-1);
       double get_rolespanlength(srlnid_type roleid, int mode, int refid=-1);
       label_type get_rolelabel(srlnid_type roleid, int mode, int refid=-1);
       std::vector<std::pair<int, alignment_type> > get_hypalignment(srlnid_type roleid);
@@ -73,23 +73,33 @@ namespace yisi {
       std::map<srlnid_type, std::vector<std::pair<int, alignment_type> > > hypalignment_m;
       std::map<srlnid_type, alignment_type> inpalignment_m;
       bool inp_b;
-   }; // class yisigraph_t
-
+  }; // class yisigraph_t
+  
    template <typename T>
    void yisigraph_t::align(phrasesim_t<T>* phrasesim) {
       //yisi alignment algorithm goes here
       //loop all references and input
       for (size_t refid = 0; refid < refsrlgraph_m.size(); refid++) {
-         //std::cerr << "first align the sentence node" << std::endl;
-         auto r = refsrlgraph_m[refid].get_sentence();
-         //std::cerr << "Got r " << r.size() << std::endl;
-         auto h = hypsrlgraph_m.get_sentence();
-         //std::cerr << "Got h " << h.size() << std::endl;
-         std::pair<double, double> sentsim = (*phrasesim)(r, h, yisi::REF_MODE);
-         //std::cerr << "sentsim = (" << sentsim.first << "," << sentsim.second << ")";
+         //std::cerr << "first align the sentence node of ref" << refid << std::endl;
          auto refroot = refsrlgraph_m[refid].get_root();
-         //std::cerr << "refroot = " << refroot << std::endl;
          auto hyproot = hypsrlgraph_m.get_root();
+
+         auto ru = refsrlgraph_m[refid].get_role_filler_units(refroot);
+         //std::cerr << "Got r " << ru.size() << std::endl;
+         auto hu = hypsrlgraph_m.get_role_filler_units(hyproot);
+         //std::cerr << "Got h " << hu.size() << std::endl;
+         std::pair<double, double> sentsim;
+         if (refsrlgraph_m[refid].get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+            //std::cerr<<"computing sentsim on word"<<std::endl;
+            sentsim = (*phrasesim)(ru, hu, yisi::REF_MODE);
+         } else {
+            auto remb = refsrlgraph_m[refid].get_role_filler_embs(refroot);
+            auto hemb = hypsrlgraph_m.get_role_filler_embs(hyproot);
+            sentsim = (*phrasesim)(ru, hu, remb, hemb, yisi::REF_MODE);
+         }
+
+         //std::cerr << "sentsim = (" << sentsim.first << "," << sentsim.second << ")";
+         //std::cerr << "refroot = " << refroot << std::endl;
          //std::cerr << "hyproot = " << hyproot << std::endl;
          refalignment_m.push_back(std::map<srlnid_type, alignment_type>());
          //std::cerr << "Done creating refalignment map" << std::endl;
@@ -109,14 +119,20 @@ namespace yisi {
             auto refpredid = *it;
             auto refpredspan = refsrlgraph_m[refid].get_role_span(refpredid);
             if (refpredspan.first != refpredspan.second) {
-               auto refpredphrase = refsrlgraph_m[refid].get_role_fillers(refpredid);
+               auto refpredphrase = refsrlgraph_m[refid].get_role_filler_units(refpredid);
                for (auto jt = hyppreds.begin(); jt != hyppreds.end(); jt++) {
                   auto hyppredid = *jt;
                   auto hyppredspan = hypsrlgraph_m.get_role_span(hyppredid);
                   if (hyppredspan.first != hyppredspan.second) {
-                     auto hyppredphrase = hypsrlgraph_m.get_role_fillers(hyppredid);
-                     std::pair<double, double> predsim =
-                        (*phrasesim)(refpredphrase, hyppredphrase, yisi::REF_MODE);
+                     auto hyppredphrase = hypsrlgraph_m.get_role_filler_units(hyppredid);
+                     std::pair<double, double> predsim;
+                     if (refsrlgraph_m[refid].get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+                        predsim = (*phrasesim)(refpredphrase, hyppredphrase, yisi::REF_MODE);
+                     } else {
+                        auto rpredemb = refsrlgraph_m[refid].get_role_filler_embs(refpredid);
+                        auto hpredemb = hypsrlgraph_m.get_role_filler_embs(hyppredid);
+                        predsim = (*phrasesim)(refpredphrase, hyppredphrase, rpredemb, hpredemb, yisi::REF_MODE);
+                     }
                      refpredmatch.add_weight(refpredid, hyppredid, predsim.second);
                      hyppredmatch.add_weight(refpredid, hyppredid, predsim.first);
                   }
@@ -139,12 +155,18 @@ namespace yisi {
             maxmatching_t argmatch;
             for (auto it = refargs.begin(); it != refargs.end(); it++) {
                auto refargid = *it;
-               auto refargphrase = refsrlgraph_m[refid].get_role_fillers(refargid);
+               auto refargphrase = refsrlgraph_m[refid].get_role_filler_units(refargid);
                for (auto jt = hypargs.begin(); jt != hypargs.end(); jt++) {
                   auto hypargid = *jt;
-                  auto hypargphrase = hypsrlgraph_m.get_role_fillers(hypargid);
-                  std::pair<double, double> argsim =
-                     (*phrasesim)(refargphrase, hypargphrase, yisi::REF_MODE);
+                  auto hypargphrase = hypsrlgraph_m.get_role_filler_units(hypargid);
+                  std::pair<double, double> argsim;
+                  if (refsrlgraph_m[refid].get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+                     argsim = (*phrasesim)(refargphrase, hypargphrase, yisi::REF_MODE);
+                  } else {
+                     auto rargemb = refsrlgraph_m[refid].get_role_filler_embs(refargid);
+                     auto hargemb = hypsrlgraph_m.get_role_filler_embs(hypargid);
+                     argsim = (*phrasesim)(refargphrase, hypargphrase, rargemb, hargemb, yisi::REF_MODE);
+                  }
                   argmatch.add_weight(refargid, hypargid, argsim.second);
                } // for jt
             } // for it
@@ -164,22 +186,27 @@ namespace yisi {
             auto aligned_hyp_pred = hpr[i].first.second;
             auto psim = hpr[i].second;
             if (hypalignment_m.find(aligned_hyp_pred) == hypalignment_m.end()) {
-               hypalignment_m[aligned_hyp_pred] =
-                                 std::vector<std::pair<int, alignment_type> >();
+               hypalignment_m[aligned_hyp_pred] = std::vector<std::pair<int, alignment_type> >();
             }
             hypalignment_m[aligned_hyp_pred].push_back(std::make_pair(refid,
-                                       alignment_type(aligned_ref_pred, psim)));
+               alignment_type(aligned_ref_pred, psim)));
             auto refargs = refsrlgraph_m[refid].get_args(aligned_ref_pred);
             auto hypargs = hypsrlgraph_m.get_args(aligned_hyp_pred);
             maxmatching_t argmatch;
             for (auto it = refargs.begin(); it != refargs.end(); it++) {
                auto refargid = *it;
-               auto refargphrase = refsrlgraph_m[refid].get_role_fillers(refargid);
+               auto refargphrase = refsrlgraph_m[refid].get_role_filler_units(refargid);
                for (auto jt = hypargs.begin(); jt != hypargs.end(); jt++) {
                   auto hypargid = *jt;
-                  auto hypargphrase = hypsrlgraph_m.get_role_fillers(hypargid);
-                  std::pair<double, double> argsim =
-                     (*phrasesim)(refargphrase, hypargphrase, yisi::REF_MODE);
+                  auto hypargphrase = hypsrlgraph_m.get_role_filler_units(hypargid);
+                  std::pair<double, double> argsim;
+                  if (refsrlgraph_m[refid].get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+                     argsim = (*phrasesim)(refargphrase, hypargphrase, yisi::REF_MODE);
+                  } else {
+                     auto rargemb = refsrlgraph_m[refid].get_role_filler_embs(refargid);
+                     auto hargemb = hypsrlgraph_m.get_role_filler_embs(hypargid);
+                     argsim = (*phrasesim)(refargphrase, hypargphrase, rargemb, hargemb, yisi::REF_MODE);
+                  }
                   argmatch.add_weight(refargid, hypargid, argsim.first);
                } // for jt
             } // for it
@@ -190,26 +217,38 @@ namespace yisi {
                auto asim = ar[j].second;
                if (hypalignment_m.find(aligned_hyp_arg) == hypalignment_m.end()) {
                   hypalignment_m[aligned_hyp_arg] =
-                                 std::vector<std::pair<int, alignment_type> >();
+                     std::vector<std::pair<int, alignment_type> >();
                }
                hypalignment_m[aligned_hyp_arg].push_back(std::make_pair(refid,
-                                          alignment_type(aligned_ref_arg, asim)));
+                  alignment_type(aligned_ref_arg, asim)));
             }  // for j
          } // for i
       } // for refid
       //input
       if (inp_b) {
-         auto r = inpsrlgraph_m.get_sentence();
-         auto h = hypsrlgraph_m.get_sentence();
-         std::pair<double, double> sentsim = (*phrasesim)(r, h, yisi::INP_MODE);
+         //std::cerr << "first align the sentence node of inp: ";
          auto inproot = inpsrlgraph_m.get_root();
          auto hyproot = hypsrlgraph_m.get_root();
+         auto r = inpsrlgraph_m.get_role_filler_units(inproot);
+         //std::cerr<< r.size();
+         auto h = hypsrlgraph_m.get_role_filler_units(hyproot);
+         //std::cerr<< h.size();
+         std::pair<double, double> sentsim;
+         if (inpsrlgraph_m.get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+            sentsim = (*phrasesim)(r, h, yisi::INP_MODE);
+         } else {
+            auto remb = inpsrlgraph_m.get_role_filler_embs(inproot);
+            auto hemb = hypsrlgraph_m.get_role_filler_embs(hyproot);
+            //std::cerr<< remb.size() <<" " <<hemb.size();
+            sentsim = (*phrasesim)(r, h, remb, hemb, yisi::INP_MODE);
+         }
+         //std::cerr << "sentsim = (" << sentsim.first << "," << sentsim.second << ")";
          inpalignment_m[inproot] = alignment_type(hyproot, sentsim.second);
          if (hypalignment_m.find(hyproot) == hypalignment_m.end()) {
             hypalignment_m[hyproot] = std::vector<std::pair<int, alignment_type> >();
          }
          hypalignment_m[hyproot].push_back(std::make_pair((int)refsrlgraph_m.size(),
-                                          alignment_type(inproot, sentsim.first)));
+            alignment_type(inproot, sentsim.first)));
          auto inppreds = inpsrlgraph_m.get_preds();
          auto hyppreds = hypsrlgraph_m.get_preds();
          maxmatching_t inppredmatch;
@@ -218,14 +257,20 @@ namespace yisi {
             auto inppredid = *it;
             auto inppredspan = inpsrlgraph_m.get_role_span(inppredid);
             if (inppredspan.first != inppredspan.second) {
-               auto inppredphrase = inpsrlgraph_m.get_role_fillers(inppredid);
+               auto inppredphrase = inpsrlgraph_m.get_role_filler_units(inppredid);
                for (auto jt = hyppreds.begin(); jt != hyppreds.end(); jt++) {
                   auto hyppredid = *jt;
                   auto hyppredspan = hypsrlgraph_m.get_role_span(hyppredid);
                   if (hyppredspan.first != hyppredspan.second) {
-                     auto hyppredphrase = hypsrlgraph_m.get_role_fillers(hyppredid);
-                     std::pair<double, double> predsim =
-                        (*phrasesim)(inppredphrase, hyppredphrase, yisi::INP_MODE);
+                     auto hyppredphrase = hypsrlgraph_m.get_role_filler_units(hyppredid);
+                     std::pair<double, double> predsim;
+                     if (inpsrlgraph_m.get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+                        predsim = (*phrasesim)(inppredphrase, hyppredphrase, yisi::INP_MODE);
+                     } else {
+                        auto ipredemb = inpsrlgraph_m.get_role_filler_embs(inppredid);
+                        auto hpredemb = hypsrlgraph_m.get_role_filler_embs(hyppredid);
+                        predsim = (*phrasesim)(inppredphrase, hyppredphrase, ipredemb, hpredemb, yisi::INP_MODE);
+                     }
                      inppredmatch.add_weight(inppredid, hyppredid, predsim.second);
                      hyppredmatch.add_weight(inppredid, hyppredid, predsim.first);
                   }
@@ -244,12 +289,18 @@ namespace yisi {
             maxmatching_t argmatch;
             for (auto it = inpargs.begin(); it != inpargs.end(); it++) {
                auto inpargid = *it;
-               auto inpargphrase = inpsrlgraph_m.get_role_fillers(inpargid);
+               auto inpargphrase = inpsrlgraph_m.get_role_filler_units(inpargid);
                for (auto jt = hypargs.begin(); jt != hypargs.end(); jt++) {
                   auto hypargid = *jt;
-                  auto hypargphrase = hypsrlgraph_m.get_role_fillers(hypargid);
-                  std::pair<double, double> argsim =
-                     (*phrasesim)(inpargphrase, hypargphrase, yisi::INP_MODE);
+                  auto hypargphrase = hypsrlgraph_m.get_role_filler_units(hypargid);
+                  std::pair<double, double> argsim;
+                  if (inpsrlgraph_m.get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+                     argsim = (*phrasesim)(inpargphrase, hypargphrase, yisi::INP_MODE);
+                  } else {
+                     auto iargemb = inpsrlgraph_m.get_role_filler_embs(inpargid);
+                     auto hargemb = hypsrlgraph_m.get_role_filler_embs(hypargid);
+                     argsim = (*phrasesim)(inpargphrase, hypargphrase, iargemb, hargemb, yisi::INP_MODE);
+                  }
                   argmatch.add_weight(inpargid, hypargid, argsim.second);
                }
             }
@@ -267,21 +318,27 @@ namespace yisi {
             auto psim = hpr[i].second;
             if (hypalignment_m.find(aligned_hyp_pred) == hypalignment_m.end()) {
                hypalignment_m[aligned_hyp_pred] =
-                                 std::vector<std::pair<int, alignment_type> >();
+                  std::vector<std::pair<int, alignment_type> >();
             }
             hypalignment_m[aligned_hyp_pred].push_back(std::make_pair((int)refsrlgraph_m.size(),
-                                                alignment_type(aligned_inp_pred, psim)));
+               alignment_type(aligned_inp_pred, psim)));
             auto inpargs = inpsrlgraph_m.get_args(aligned_inp_pred);
             auto hypargs = hypsrlgraph_m.get_args(aligned_hyp_pred);
             maxmatching_t argmatch;
             for (auto it = inpargs.begin(); it != inpargs.end(); it++) {
                auto inpargid = *it;
-               auto inpargphrase = inpsrlgraph_m.get_role_fillers(inpargid);
+               auto inpargphrase = inpsrlgraph_m.get_role_filler_units(inpargid);
                for (auto jt = hypargs.begin(); jt != hypargs.end(); jt++) {
                   auto hypargid = *jt;
-                  auto hypargphrase = hypsrlgraph_m.get_role_fillers(hypargid);
-                  std::pair<double, double> argsim =
-                     (*phrasesim)(inpargphrase, hypargphrase, yisi::INP_MODE);
+                  auto hypargphrase = hypsrlgraph_m.get_role_filler_units(hypargid);
+                  std::pair<double, double> argsim;
+                  if (inpsrlgraph_m.get_sent_type() != "uemb" ||  hypsrlgraph_m.get_sent_type() != "uemb") {
+                     argsim = (*phrasesim)(inpargphrase, hypargphrase, yisi::INP_MODE);
+                  } else {
+                     auto iargemb = inpsrlgraph_m.get_role_filler_embs(inpargid);
+                     auto hargemb = hypsrlgraph_m.get_role_filler_embs(hypargid);
+                     argsim = (*phrasesim)(inpargphrase, hypargphrase, iargemb, hargemb, yisi::INP_MODE);
+                  }
                   argmatch.add_weight(inpargid, hypargid, argsim.first);
                }
             }
@@ -292,17 +349,17 @@ namespace yisi {
                auto asim = ar[j].second;
                if (hypalignment_m.find(aligned_hyp_arg) == hypalignment_m.end()) {
                   hypalignment_m[aligned_hyp_arg] =
-                                 std::vector<std::pair<int, alignment_type> >();
+                     std::vector<std::pair<int, alignment_type> >();
                }
                hypalignment_m[aligned_hyp_arg].push_back(std::make_pair((int)refsrlgraph_m.size(),
-                                                alignment_type(aligned_inp_arg, asim)));
+                  alignment_type(aligned_inp_arg, asim)));
             }
          }
       }
    } // align
 
    std::ostream& operator<<(std::ostream& os, const yisi::yisigraph_t& m);
-
+  
 } // yisi
 
 

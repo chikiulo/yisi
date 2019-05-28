@@ -51,10 +51,10 @@ srl_t::~srl_t() {
    }
 }
 
-srlgraph_t srl_t::parse(string sent) {
+srlgraph_t srl_t::parse(sent_t* sent) {
    return srl_p->parse(sent);
 }
 
-vector<srlgraph_t> srl_t::parse(vector<string> sents) {
+vector<srlgraph_t> srl_t::parse(vector<sent_t*> sents) {
    return srl_p->parse(sents);
 }

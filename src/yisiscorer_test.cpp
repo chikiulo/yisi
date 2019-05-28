@@ -37,8 +37,8 @@ int main(const int argc, const char* argv[])
 
    string reffile("test_ref.en");
    string hypfile("test_hyp.en");
-   vector<string> refsents = read_file(reffile);
-   vector<string> hypsents = read_file(hypfile);
+   vector<sent_t*> refsents = read_sent("word", reffile);
+   vector<sent_t*> hypsents = read_sent("word", hypfile);
 
    auto r1 = yisi.refsrlparse(refsents);
    auto r2 = yisi.hypsrlparse(hypsents);
@@ -50,5 +50,13 @@ int main(const int argc, const char* argv[])
       yisigraph_t m = yisi.align(rs,r2[i]);
 
       cout << "YiSi score is:" << yisi.score(m) << endl;
+   }
+   for (auto it = refsents.begin(); it != refsents.end(); it++) {
+      delete *it;
+      *it = NULL;
+   }
+   for (auto it = hypsents.begin(); it != hypsents.end(); it++) {
+      delete *it;
+      *it = NULL;
    }
 }

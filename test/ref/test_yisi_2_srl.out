@@ -57,8 +57,10 @@ Cluster       null
 Loading pipeline from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-ger.model
 Loading reranker from /home/das011/u/sandboxes/mateplus/models/srl-EMNLP14+fs-ger.model
 Done.
-Tokenizing/SRL-ing hyp ... Done.
-Tokenizing/SRL-ing inp ... Done.
+Reading hyp sents... Done.
+Reading inp sents... Done.
+Creating hyp srlgraphs... Done.
+Creating inp srlgraphs... Done.
 Evaluating line 1
 Evaluating line 2
 Evaluating line 3

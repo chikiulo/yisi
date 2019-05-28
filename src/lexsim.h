@@ -97,16 +97,28 @@ namespace yisi {
       int dimension_m;
    }; // class lexsimw2v_t
 
+   class lexsimemb_t:public lexsimmodel_t {
+   public:
+      lexsimemb_t() {
+         func_m = "cosine";
+      }
+      virtual ~lexsimemb_t() {}
+      virtual double get_sim(std::string ref, std::string hyp, int mode);
+      virtual double get_sim(std::vector<double>& ref, std::vector<double>& hyp);
+   protected:
+      std::string func_m;
+   }; // class lexsimw2v_t
+
    class lexsimemapw2v_t:public lexsimw2v_t {
    public:
-     lexsimemapw2v_t() {}
-     lexsimemapw2v_t(std::string emap_path, std::string outw2v_func);
-     virtual ~lexsimemapw2v_t() {}
-     std::vector<double>& get_wv(std::string word, int mode);
-     virtual double get_sim(std::string s1, std::string hyp, int mode);
-     virtual double get_sim(std::vector<double>& s1, std::vector<double>& hyp);
+      lexsimemapw2v_t() {}
+      lexsimemapw2v_t(std::string emap_path, std::string outw2v_func);
+      virtual ~lexsimemapw2v_t() {}
+      std::vector<double>& get_wv(std::string word, int mode);
+      virtual double get_sim(std::string s1, std::string hyp, int mode);
+      virtual double get_sim(std::vector<double>& s1, std::vector<double>& hyp);
    private:
-     std::map<std::string, std::string> emap_m;
+      std::map<std::string, std::string> emap_m;
    }; // class lexsimemapw2v_t
 
 //   class lexsimibm_t:public lexsimmodel_t {

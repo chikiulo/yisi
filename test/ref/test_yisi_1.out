@@ -2,8 +2,10 @@ Reading w2v text model from mini.d300.en
 Size of voc: 500 Dimension: 300
 Finished reading w2v model.
 Learning lex weight from test_ref.en ... Done.
-Tokenizing/SRL-ing hyp ... Done.
-Tokenizing/SRL-ing ref ... Done.
+Reading hyp sents... Done.
+Reading ref sents... Done.
+Creating hyp srlgraphs... Done.
+Creating ref srlgraphs... Done.
 Evaluating line 1
 Evaluating line 2
 Evaluating line 3

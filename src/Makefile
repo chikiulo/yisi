@@ -12,7 +12,7 @@
 # Override the value of MATEPLUS_HOME with a command line definition, or
 # consider defining MATEPLUS_HOME in your .profile, for example:
 #   export MATEPLUS_HOME=~/u/sandboxes/mateplus
-MATEPLUS_HOME ?= ~/u/tools/MATE/mateplus-master/src
+MATEPLUS_HOME ?= /home/loc982/u/tools/mateplus
 
 MATETOOLS_HOME ?= $(MATEPLUS_HOME)
 
@@ -47,6 +47,7 @@ LIBRARIES += -Wl,-Bstatic -lcmdlp -Wl,-Bdynamic
 PROG_NAMES := yisi
 TEST_NAMES := srlgraph_test maxmatching_test lexsim_test w2v_test biw2v_test \
 	      lexweight_test phrasesim_test srl_test srlutil_test util_test \
+	      emap_test oov_test ngram_test overlapvocab_test \
 	      yisiscorer_test testbin
 CMDLP_TEST_NAMES := cmdlp_test
 

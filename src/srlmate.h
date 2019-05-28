@@ -35,9 +35,9 @@ namespace yisi {
       srlmate_t() {}
       srlmate_t(std::string path);
       ~srlmate_t();
-      std::string jrun(std::string sent);
-      srlgraph_t parse(std::string sent);
-      virtual std::vector<srlgraph_t> parse(std::vector<std::string> sents);
+      std::string jrun(sent_t* sent);
+      srlgraph_t parse(sent_t* sent);
+      virtual std::vector<srlgraph_t> parse(std::vector<sent_t*> sents);
    private:
       std::string noparse(std::vector<std::string> tokens);
       static JavaVM* jvm_m;

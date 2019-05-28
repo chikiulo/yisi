@@ -27,21 +27,7 @@ int main(const int argc, const char* argv[])
    if (argc == 1) {
       srl_t mate("mate", "parse_full_es.sh");
 
-      vector<string> sents;
-
-      ifstream IN("test_es.txt");
-      if (IN.fail() or IN.bad()) {
-         cerr << "ERROR: Failed to open: test_es.txt. Exiting..." << endl;
-         exit(1);
-      }
-
-      while (!IN.eof()) {
-         string line;
-         getline(IN, line);
-         if (line != "") {
-            sents.push_back(line);
-         }
-      }
+      vector<sent_t*> sents = read_sent("word", "test_es.txt");
 
       auto r = mate.parse(sents);
       cout << "Done parsing " << r.size() << " srlgraphs." << endl;
@@ -52,22 +38,7 @@ int main(const int argc, const char* argv[])
 
    } else {
       srl_t parser(argv[1], argv[2]);
-      vector<string> sents;
-
-      ifstream IN(argv[3]);
-      if (IN.fail() or IN.bad()) {
-         cerr << "ERROR: Failed to open:" << argv[3] << ". Exiting..." << endl;
-         exit(1);
-      }
-
-      while (!IN.eof()) {
-         string line;
-         getline(IN, line);
-         if (line != "") {
-            sents.push_back(line);
-         }
-      }
-      IN.close();
+      vector<sent_t*> sents = read_sent("word", string(argv[3]));
 
       auto r = parser.parse(sents);
       cout << "Done parsing " << r.size() << " srlgraphs." << endl;

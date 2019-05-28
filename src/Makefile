@@ -34,13 +34,18 @@ endif
 endif
 endif
 
-CXXFLAGS += -Wall -pedantic -std=c++11 -g -O3
+CXXFLAGS += -Wall -pedantic -std=c++11 -g -O3 -Icmdlp/build/include
 JFLAGS += -cp ${MATEPLUS_PATH}
 
+CMDLP_LIB = cmdlp/build/lib/libcmdlp.a
+LDFLAGS += -Lcmdlp/build/lib
+LIBRARIES += -Wl,-Bstatic -lcmdlp -Wl,-Bdynamic
+
 PROG_NAMES := yisi
-TEST_NAMES := cmdlp_test srlgraph_test maxmatching_test lexsim_test w2v_test biw2v_test \
+TEST_NAMES := srlgraph_test maxmatching_test lexsim_test w2v_test biw2v_test \
 	      lexweight_test phrasesim_test srl_test srlutil_test util_test \
 	      yisiscorer_test testbin
+CMDLP_TEST_NAMES := cmdlp_test
 
 ifdef WITH_SRLMATE
    TEST_NAMES += srlmate_test
@@ -53,7 +58,6 @@ BIN_NAMES := $(PROG_NAMES) $(TEST_NAMES)
 ALL_BIN_NAMES := $(BIN_NAMES) srlmate_test
 
 SRC_OBJS := $(patsubst %.cpp,../obj/%.o,$(wildcard *.cpp))
-CMDLP_OBJS := $(patsubst cmdlp/%.cpp,../obj/%.o,$(wildcard cmdlp/*.cpp))
 
 # We compile/link SRLMATE objects a bit differently.
 SRLMATE_OBJS := $(addprefix ../obj/,srlmate.o)
@@ -67,7 +71,7 @@ ifdef WITH_SRLMATE
 endif
 
 # Object files are c++ sources that do not result in stand alone binaries
-ALL_OBJECTS := $(filter-out $(addprefix ../obj/,$(ALL_BIN_NAMES:%=%.o)),$(SRC_OBJS) $(CMDLP_OBJS))
+ALL_OBJECTS := $(filter-out $(addprefix ../obj/,$(ALL_BIN_NAMES:%=%.o)),$(SRC_OBJS))
 
 OBJECTS := $(filter-out $(SRLMATE_OBJS),$(ALL_OBJECTS))
 
@@ -112,12 +116,13 @@ $(SRLMATE_OBJS) $(SRLMATE_BIN_OBJS): CXXFLAGS += -I${JAVA_HOME}/include -I${JAVA
 $(SRLMATE_BINS): $(SRLMATE_OBJS)
 $(SRLMATE_BINS): OBJECTS += $(SRLMATE_OBJS)
 
-../bin/%: ../obj/%.o $(OBJECTS) | ../bin
+../bin/%: ../obj/%.o $(OBJECTS) $(CMDLP_LIB) | ../bin
 	$(CXX) $(LDFLAGS) $< $(OBJECTS) $(LIBRARIES) -o $@
 
 $(SRC_OBJS): ../obj/%.o: %.cpp | ../obj ../dep
 
-$(CMDLP_OBJS): ../obj/%.o: cmdlp/%.cpp | ../obj ../dep
+$(CMDLP_LIB):
+	$(MAKE) -C cmdlp
 
 ifdef WITH_SRLMATE
 ../obj/srl.o: ../obj/.STAMP.WITH_SRLMATE
@@ -140,18 +145,24 @@ test:
 ../dep ../obj ../bin:
 	mkdir -p $@
 
-.PHONY: clean cleaner clean.mplsconfig
-clean: clean.mplsconfig
+.PHONY: clean cleaner clean.mplsconfig clean.cmdlp cleaner.cmdlp clean.test
+clean: clean.mplsconfig clean.cmdlp
 	$(RM) -r ../bin
 	$(RM) *~
 
 clean.mplsconfig:
 	$(RM) -f en.mplsconfig de.mplsconfig es.mplsconfig zh.mplsconfig
 
+clean.cmdlp:
+	$(MAKE) -C cmdlp clean
+
+cleaner.cmdlp:
+	$(MAKE) -C cmdlp cleaner
+
 clean.test:
 	$(MAKE) -C ../test clean
 
-cleaner: clean clean.test
+cleaner: clean cleaner.cmdlp clean.test
 	$(RM) -r ../dep ../obj
 
 -include $(wildcard ../dep/*.d)

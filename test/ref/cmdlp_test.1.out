@@ -1,0 +1,48 @@
+
+usage: ../src/cmdlp/build/bin/cmdlp_test -[-b]eta --reference_file_prefix|--refs file_0 (... file_n)
+
+     This can be a pretty long text about what the program does, that
+     goes between the usage and the option descriptions. Just to give
+     you an idea, I am going to ramble on for a while; although I really
+     don't have that much to say.
+       Oh, and paragraphs should work to, so any newline will be
+     interpreted as a paragraph break. Neat, huh? (Keep in mind that C++
+     transforms newlines when reading to and from fstreams, so it should
+     be a control-n regardless of which platform you're on.)
+
+-[-a]lpha|--ALPHA=10
+     The alpha value.
+-[-b]eta=0
+     The beta value.
+-[-f]lip=no
+     A switch
+--on=no
+     Turns on
+--off=yes
+     Turns off
+-[-s]tr=
+     Some input strings
+--cipher=
+     Encrypts the provided strings.
+-[-c]onst="pi":3.14
+     Named numeric constants.
+-[-m]agic=no_magic
+     [no_magic] Disable magic completely. [less_magic] Limit magic to keep them
+     guessing. [more_magic] Make no mistake, magic is here!
+--settings=/dev/fd/63
+     A settings file.
+--reference_file_prefix|--refs=test_ref.en
+     A prefix for reference files.
+--dumpto=
+     Dumps the parameters, as undestood by the program, to a config file that
+     can later be used to rerun with the same settings. Leave empty to not dump.
+     Use '-' to dump to standard output.
+--config=
+     Read parameters from the provided file as if they were provided in the same
+     position on the command line.
+-[-h]elp=yes
+     Prints the help message and exits normally.
+
+     Again, lay out the text if you will! Maybe add some credits (or
+     copyright if you're not into the whole copyleft thing).
+

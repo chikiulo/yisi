@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enums>
+	<enum name="magic_level" namespace="knobs">
+		<item name="no_magic">Disable magic completely.</item>
+		<item name="less_magic">Limit magic to keep them guessing.</item>
+		<item name="more_magic">Make no mistake, magic is here!</item>
+	</enum>
+	<enum name="yesno">
+		<item name="yes">Sure!</item>
+		<item name="no">Nay...</item>
+	</enum>
+</enums>

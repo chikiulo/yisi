@@ -11,6 +11,7 @@
  * Copyright 2018, Sa Majeste la Reine du Chef du Canada
  */
 
+#include "cmdlp/options.h"
 #include "yisiscorer.h"
 
 #include <iostream>

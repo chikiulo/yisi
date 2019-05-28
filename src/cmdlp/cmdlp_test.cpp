@@ -1,7 +1,6 @@
 /**
    Unit test for the command-line option library, which was cloned from:
-
-   https://github.com/masaers/cmdlp (v0.2 tag)
+   https://github.com/masaers/cmdlp (v0.4.1 tag)
 
    Thanks Markus!
    Consider cloning the original repository if you like it.
@@ -9,11 +8,14 @@
    Copyright (c) 2018 Markus S. Saers
  */
 
-#include "cmdlp.h"
+#include "options.h"
+#include "iooption.h"
+#include "magic_enum.h"
+#include "paragraph.h"
 #include <iostream>
-#include <string>
 #include <vector>
 #include <set>
+
 
 /**
   Cryptic read function.
@@ -47,10 +49,12 @@ struct local_options {
   bool flip;
   bool on;
   bool off;
-  std::string path;
   std::set<std::string> strings;
   std::vector<std::string> cipher;
   std::map<std::string, float> constants;
+  knobs::magic_level::value magic_level;
+  com::masaers::cmdlp::ifile settings;
+  com::masaers::cmdlp::ifile_prefix reference_files;
   // const char* cstr;
   void init(com::masaers::cmdlp::parser& p) {
     using namespace com::masaers::cmdlp;
@@ -67,12 +71,6 @@ struct local_options {
     p.add(make_switch(flip)).desc("A switch").name('f').name("flip");
     p.add(make_onswitch(on)).desc("Turns on").name("on");
     p.add(make_offswitch(off)).desc("Turns off").name("off");
-    p.add(make_knob(path))
-    .desc("The path name.")
-    .name('p', "path")
-    .name("PATH")
-    .fallback("a_path")
-    ;
     p.add(make_knob(strings))
     .desc("Some input strings")
     .name('s', "str")
@@ -88,17 +86,83 @@ struct local_options {
     .name('c', "const")
     .fallback({ {"pi", 3.14} })
     ;
+    p.add(make_knob(magic_level))
+    .desc(knobs::magic_level::desc())
+    .name('m', "magic")
+    .fallback(knobs::magic_level::no_magic)
+    ;
+    p.add(make_knob(settings))
+    .desc("A settings file.")
+    .name("settings")
+    .fallback("-")
+    ;
+    p.add(make_knob(reference_files))
+    .desc("A prefix for reference files.")
+    .name("reference_file_prefix")
+    .name("refs")
+    ;
     return;
   }
 };
 
 int main(const int argc, const char** argv) {
   using namespace std;
-  com::masaers::cmdlp::options<local_options> o(argc, argv);
+  using namespace com::masaers::cmdlp;
+  const char* preamble =
+  "This can be a pretty long text about what the program does, that "
+  "goes between the usage and the option descriptions. Just to give you "
+  "an idea, I am going to ramble on for a while; although I really don't have "
+  "that much to say.\nOh, and paragraphs should work to, so any newline will "
+  "be interpreted as a paragraph break. Neat, huh? (Keep in mind that C++ "
+  "transforms newlines when reading to and from fstreams, so it should be a "
+  "control-n regardless of which platform you're on.)"
+  ;
+  const char* postamble =
+  "Again, lay out the text if you will! Maybe add some credits "
+  "(or copyright if you're not into the whole copyleft thing)."
+  ;
+  options<local_options> o(argc, argv, options_config().argdesc("file_0 (... file_n)").preamble(preamble).postamble(postamble));
   if (! o) {
     return o.exit_code();
   }
 
+  for (string line; getline(*o.settings, line); /**/) {
+    cout << "From settings: '" << line << "'" << endl;
+  }
+
+  {
+    cout << "         1         2         3         4         5         6         7         8" << endl;;
+    cout << "12345678901234567890123456789012345678901234567890123456789012345678901234567890" << endl;
+    const auto p = com::masaers::cmdlp::paragraph(cout, 60, 2, 2);
+    cout << "Lorem Ipsum är en utfyllnadstext från tryck- och förlagsindustrin. "
+    "Lorem ipsum har varit standard ända sedan 1500-talet, "
+    "när en okänd boksättare tog att antal bokstäver och blandade dem för "
+    "att göra ett provexemplar av en bok. Lorem ipsum har inte bara överlevt "
+    "fem århundraden, utan även övergången till elektronisk typografi utan "
+    "större förändringar. Det blev allmänt känt på 1960-talet i samband med "
+    "lanseringen av Letraset-ark med avsnitt av Lorem Ipsum, och senare med "
+    "mjukvaror som Aldus PageMaker.\n"
+    "The Skåne town of Råå has a stream (å) with eel (ål): ie Råååål. Hope "
+    "that is enough unicode to give a bad linebreak."
+    << endl;
+  }
+  switch (o.magic_level) {
+    case knobs::magic_level::no_magic:
+    break;
+    case knobs::magic_level::less_magic:
+    break;
+    case knobs::magic_level::more_magic:
+    break;
+    default:
+    ;
+  }
+
+  for (const auto& ref : o.reference_files) {
+    cout << "Reference file: '" << ref << "'." << endl;
+    size_t count = 0;
+    for (string line; getline(*ref, line); ++count);
+    cout << count << endl;
+  }
   return EXIT_SUCCESS;
 }
 

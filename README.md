@@ -32,7 +32,8 @@ role labeler for both the input and output language.
 ### Prerequisites
 #### Base requirements
 - YiSi was developed to run on Linux.
-- YiSi is written in C++ and requires a version of `g++` that supports C++11; we're using GCC 4.9.3.
+- YiSi is written in C++ and requires a version of `g++` that supports C++11; we're now using GCC 5.4.
+(Note: GCC 4.9.3 cannot compile the current version of the cmdlp library we use.)
 - YiSi requires `make`; we're using GNU Make 3.81.
 - YiSi requires `bash`; we're using GNU bash, version 4.1.2.
 

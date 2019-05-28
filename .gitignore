@@ -2,6 +2,7 @@
 bin/
 dep/
 obj/
+src/cmdlp/build/
 
 # mplsconfig files that are generated from templates
 src/en.mplsconfig

@@ -16,6 +16,7 @@
 #include <fstream>
 #include <string>
 
+#include "cmdlp/options.h"
 #include "phrasesim.h"
 
 using namespace std;

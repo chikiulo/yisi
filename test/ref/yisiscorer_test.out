@@ -2,13 +2,13 @@ Reading w2v text model from mini.d300.en
 Size of voc: 500 Dimension: 300
 Finished reading w2v model.
 Learning lex weight from test_ref.en ... Done.
-YiSi score is:0.84611
-YiSi score is:0.672247
-YiSi score is:0.687267
-YiSi score is:0.607581
-YiSi score is:0.519935
-YiSi score is:0.617868
-YiSi score is:0.592381
-YiSi score is:0.548845
-YiSi score is:0.576012
-YiSi score is:0.858972
+YiSi score is:0.844966
+YiSi score is:0.671712
+YiSi score is:0.685746
+YiSi score is:0.605963
+YiSi score is:0.518839
+YiSi score is:0.617737
+YiSi score is:0.590882
+YiSi score is:0.547575
+YiSi score is:0.575369
+YiSi score is:0.85843

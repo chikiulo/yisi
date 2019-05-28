@@ -197,7 +197,7 @@ int main(const int argc, const char* argv[])
    if (opt.mode_m != "features") {
       ofstream DOCOUT;
       open_ofstream(DOCOUT, opt.docscore_file_m);
-      docscore /= refsents.size();
+      docscore /= hypsents.size();
       DOCOUT << docscore << endl;
       DOCOUT.close();
    }

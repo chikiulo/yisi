@@ -214,57 +214,52 @@ void lexsimw2v_t::write_txtw2v(std::string path) {
    cerr << "Done." << endl;
 }
 
-//lexsimemapw2v_t::lexsimemapw2v_t(string path, const string func, string add_path, string add_func)
-//: lexsimw2v_t(path, func) {
-//   lexsim_mapfunc_m = add_func;
-//   cerr << "Reading emap model from " << add_path << endl;
-//   ifstream EMAP(add_path.c_str());
-//   if (!EMAP) {
-//      cerr << "ERROR: fail to open ibm model. Exiting..." << endl;
-//      exit(1);
-//   }
-//   while (!EMAP.eof()) {
-//      string hyp;
-//      string ref;
-//      double sim;
-//      EMAP >> ref >> hyp >> sim;
-//      emap_m[ref].push_back(std::pair<string, double>(hyp, sim));
-//   }
-//   EMAP.close();
-//   cerr << "Finished reading." << endl;
-//   cerr << "Sorting sim for each ref ...";
-//   for (auto it = emap_m.begin(); it != emap_m.end(); it++) {
-//      sort((it->second).begin(), (it->second).end(), sort_helper);
-//   }
-//   cerr << "Done" << endl;
-//}
+lexsimemapw2v_t::lexsimemapw2v_t(string emap_path, string outw2v_path)
+: lexsimw2v_t(outw2v_path) {
+  cerr << "Reading emap model from " << emap_path << endl;
+  ifstream EMAP(emap_path.c_str());
+  if (!EMAP) {
+    cerr << "ERROR: fail to open ibm model. Exiting..." << endl;
+    exit(1);
+  }
+  while (!EMAP.eof()) {
+    string inp;
+    string hyp;
+    EMAP >> inp >> hyp;
+    emap_m[inp]=hyp;
+  }
+  EMAP.close();
+  cerr << "Finished reading." << endl;
+}
 
-//double lexsimemapw2v_t::get_sim(string ref, string hyp) {
-//   double result = 0.0;
-//   if (emap_m.find(ref) != emap_m.end()) {
-//      auto ref_hat = emap_m[ref][0].first;
-//      result = simfunc(func_m, this->get_wv(ref_hat), this->get_wv(hyp));
-//      double sim_hat = emap_m[ref][0].second;
-//      if (lexsim_mapfunc_m == "max") {
-//         return result;
-//      } else if (lexsim_mapfunc_m == "wmax") {
-//         return sim_hat * result;
-//      } else if (lexsim_mapfunc_m == "wsum") {
-//         for (size_t i = 1; i < emap_m[ref].size() && i < 5; i++) {
-//            result += emap_m[ref][i].second
-//               * simfunc(func_m, this->get_wv(emap_m[ref][i].first), this->get_wv(hyp));
-//         }
-//      } else if (lexsim_mapfunc_m == "maxmax") {
-//         for (size_t i = 1; i < emap_m[ref].size() && i < 5; i++) {
-//            double s = simfunc(func_m, this->get_wv(emap_m[ref][i].first), this->get_wv(hyp));
-//            if (s > result) {
-//               result = s;
-//            }
-//         }
-//      }
-//   }
-//   return result;
-//}
+vector<double>& lexsimemapw2v_t::get_wv(string word, int mode) {
+  if (mode == yisi::INP_MODE){
+    if (emap_m.find(word) != emap_m.end()) {
+      word = emap_m[word];
+    } else if (emap_m.find(lowercase(word)) != emap_m.end()){
+      word = emap_m[lowercase(word)];
+    }
+  }
+  return yisi::get_wv(outembeddings_m, word);
+}
+
+double lexsimemapw2v_t::get_sim(string s1, string hyp, int mode) {
+  if (lowercase(s1) == lowercase(hyp)){
+    return 1.0;
+  } else {
+    double result = this->get_sim(this->get_wv(s1, mode), this->get_wv(hyp, yisi::HYP_MODE));
+    //cerr << "(" << s1 << "," << hyp << "," << mode << "," << result << ")" << endl;
+    return result;
+  }
+}
+
+double lexsimemapw2v_t::get_sim(vector<double>& s1, vector<double>& hyp) {
+  if ((int)s1.size() == dimension_m && (int)hyp.size() == dimension_m) {
+    return yisi::get_sim(s1, hyp, func_m);
+  } else {
+    return 0.0;
+  }
+}
 
 lexsimbiw2v_t::lexsimbiw2v_t(string inpw2v_path, string outw2v_path)
 : lexsimw2v_t(outw2v_path) {
@@ -320,17 +315,17 @@ lexsim_t::lexsim_t(string name, string out_path, string inp_path) {
    if (name == "exact") {
       lexsim_p = new lexsimexact_t();
    } else if (name == "ibm") {
-      //lexsim_p = new lexsimibm_t(path);
+     //lexsim_p = new lexsimibm_t(path);
    } else if (name == "w2v") {
-      lexsim_p = new lexsimw2v_t(out_path);
+     lexsim_p = new lexsimw2v_t(out_path);
    } else if (name == "ibmw2v" || name == "emapw2v") {
-      //lexsim_p = new lexsimemapw2v_t(path, func, add_path, add_func);
+     lexsim_p = new lexsimemapw2v_t(inp_path, out_path);
    } else if (name == "biw2v") {
-      lexsim_p = new lexsimbiw2v_t(inp_path, out_path);
+     lexsim_p = new lexsimbiw2v_t(inp_path, out_path);
    } else if (name == "lcs") {
-      lexsim_p = new lexsimlcs_t();
+     lexsim_p = new lexsimlcs_t();
    } else {
-      cerr << "ERROR: Unknown lexsim model type " << name << endl;
+     cerr << "ERROR: Unknown lexsim model type " << name << endl;
    }
    lexsim_name_m = name;
    outlexsim_path_m = out_path;
@@ -345,8 +340,7 @@ lexsim_t::lexsim_t(lexsim_t& rhs) {
    } else if (rhs.lexsim_name_m == "w2v") {
       lexsim_p = new lexsimw2v_t(rhs.outlexsim_path_m);
    } else if (rhs.lexsim_name_m == "ibmw2v" || rhs.lexsim_name_m == "emapw2v") {
-      //lexsim_p = new lexsimemapw2v_t(rhs.lexsim_path_m, rhs.lexsim_func_m,
-      //                               rhs.lexsim_addpath_m, rhs.lexsim_addfunc_m);
+     lexsim_p = new lexsimemapw2v_t(rhs.inplexsim_path_m, rhs.outlexsim_path_m);
    } else if (rhs.lexsim_name_m == "biw2v") {
       lexsim_p = new lexsimbiw2v_t(rhs.inplexsim_path_m, rhs.outlexsim_path_m);
    } else if (rhs.lexsim_name_m == "lcs") {

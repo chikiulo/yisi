@@ -97,17 +97,18 @@ namespace yisi {
       int dimension_m;
    }; // class lexsimw2v_t
 
-//   class lexsimemapw2v_t:public lexsimw2v_t {
-//   public:
-//      lexsimemapw2v_t() {}
-//      lexsimemapw2v_t(std::string w2v_path, std::string w2v_func, std::string map_path, std::string map_func);
-//      virtual ~lexsimemapw2v_t() {}
-//      virtual double get_sim(std::string inp, std::string hyp);
-//   private:
-//      std::map<std::string, std::vector<std::pair<std::string, double> > > emap_m;
-//      std::string lexsim_mapfunc_m;
-//   }; // class lexsimemapw2v_t
-//
+   class lexsimemapw2v_t:public lexsimw2v_t {
+   public:
+     lexsimemapw2v_t() {}
+     lexsimemapw2v_t(std::string emap_path, std::string outw2v_func);
+     virtual ~lexsimemapw2v_t() {}
+     std::vector<double>& get_wv(std::string word, int mode);
+     virtual double get_sim(std::string s1, std::string hyp, int mode);
+     virtual double get_sim(std::vector<double>& s1, std::vector<double>& hyp);
+   private:
+     std::map<std::string, std::string> emap_m;
+   }; // class lexsimemapw2v_t
+
 //   class lexsimibm_t:public lexsimmodel_t {
 //   public:
 //      lexsimibm_t() {}
